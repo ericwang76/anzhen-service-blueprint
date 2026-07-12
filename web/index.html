@@ -6,7 +6,7 @@
     <meta name="theme-color" content="#faf9f5" />
     <meta name="description" content="安诊真人医生核验服务双端移动流程设计" />
     <title>安诊 · 双端移动服务蓝图</title>
-    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <header class="topbar">
@@ -257,9 +257,362 @@
         </div>
       </div>
 
+      <section class="trace-section" aria-labelledby="traceTitle">
+        <header class="trace-header">
+          <div>
+            <span class="eyebrow">MODEL TRAINING TRACE</span>
+            <h2 id="traceTitle">一次真人核验，沉淀一条可训练轨迹。</h2>
+            <p>从用户带入疑虑，到医生最终发送，每一次输入、生成、选择和修改，都能形成带上下文与人类反馈的训练数据。</p>
+          </div>
+          <div class="trace-id"><span>TRACE ID</span><strong>check_20260711_0842</strong><small>已脱敏 · 已获授权 · 可追溯</small></div>
+        </header>
+
+        <div class="trace-flow" aria-label="训练数据事件链">
+          <article class="trace-event user-event">
+            <header><span>01</span><b>用户输入</b></header>
+            <strong>发起 Check</strong>
+            <p>搜索 Query、百科来源、疑虑段落</p>
+            <code>user.check.create</code>
+          </article>
+          <div class="trace-arrow"><i></i><span>→</span></div>
+          <article class="trace-event assistant-event">
+            <header><span>02</span><b>AI 回复</b></header>
+            <strong>理解并承接</strong>
+            <p>复述关注点、说明流程与提问价值</p>
+            <code>assistant.reply</code>
+          </article>
+          <div class="trace-arrow"><i></i><span>→</span></div>
+          <article class="trace-event question-event">
+            <header><span>03</span><b>AI 追问</b></header>
+            <strong>测量条件</strong>
+            <p>“这次 6.3 mmol/L 是在什么情况下测的？”</p>
+            <code>question.measurement_context</code>
+          </article>
+          <div class="trace-arrow"><i></i><span>→</span></div>
+          <article class="trace-event user-event">
+            <header><span>04</span><b>用户输入</b></header>
+            <strong>回答测量条件</strong>
+            <p>“晨起空腹 10 小时测的。”</p>
+            <code>answer.measurement_context</code>
+          </article>
+          <div class="trace-arrow"><i></i><span>→</span></div>
+          <article class="trace-event question-event">
+            <header><span>05</span><b>AI 追问</b></header>
+            <strong>既往血糖情况</strong>
+            <p>“以前是否出现过血糖偏高？”</p>
+            <code>question.glucose_history</code>
+          </article>
+          <div class="trace-arrow"><i></i><span>→</span></div>
+          <article class="trace-event user-event">
+            <header><span>06</span><b>用户输入</b></header>
+            <strong>回答既往情况</strong>
+            <p>“第一次发现偏高。”</p>
+            <code>answer.glucose_history</code>
+          </article>
+          <div class="trace-arrow"><i></i><span>→</span></div>
+          <article class="trace-event question-event">
+            <header><span>07</span><b>AI 追问</b></header>
+            <strong>高风险因素</strong>
+            <p>“你是否有糖尿病家族史等高风险因素？”</p>
+            <code>question.risk_factors</code>
+          </article>
+          <div class="trace-arrow"><i></i><span>→</span></div>
+          <article class="trace-event user-event">
+            <header><span>08</span><b>用户输入</b></header>
+            <strong>回答风险因素</strong>
+            <p>“母亲有糖尿病。”</p>
+            <code>answer.risk_factors</code>
+          </article>
+          <div class="trace-arrow"><i></i><span>→</span></div>
+          <article class="trace-event copilot-event">
+            <header><span>09</span><b>Copilot 生成</b></header>
+            <strong>候选回答 A / B</strong>
+            <p>完整上下文、模型版本与生成参数</p>
+            <code>copilot.candidates</code>
+          </article>
+          <div class="trace-arrow"><i></i><span>→</span></div>
+          <article class="trace-event doctor-event">
+            <header><span>10</span><b>医生动作</b></header>
+            <strong>直发 / 编辑后发</strong>
+            <p>选择结果、修改差异与最终回答</p>
+            <code>doctor.finalize</code>
+          </article>
+        </div>
+      </section>
+
+      <section class="consultation-extension" aria-labelledby="consultationTitle">
+        <header class="extension-header">
+          <div>
+            <span class="eyebrow">PAID CONSULTATION · AFTER STEP 04</span>
+            <h2 id="consultationTitle">从核验升级为一次完整真人问诊。</h2>
+            <p>支付后由医生智能助手继续陪伴和预问诊；医生接诊时开启限时真人 IM，结束后回到咨询室沉淀问诊小结。</p>
+          </div>
+          <div class="extension-path"><span>支付成功</span><b>→</b><span>预问诊</span><b>→</b><span>医生接诊</span><b>→</b><span>限时 IM</span><b>→</b><span>小结指导</span></div>
+        </header>
+
+        <div class="extension-viewport" id="extensionViewport">
+          <div class="extension-canvas">
+            <section class="extension-lane extension-patient-lane">
+              <header class="lane-header compact-lane-header">
+                <div class="lane-role patient-role"><span>患者</span></div>
+                <div><span class="eyebrow">PATIENT CONSULTATION ROOM</span><h2>患者端 · 付费问诊延展</h2><p>咨询室始终是主容器，真人 IM 只在医生接诊后临时打开。</p></div>
+                <div class="lane-count">5 个移动界面</div>
+              </header>
+
+              <div class="extension-grid patient-extension-grid">
+                <article class="phone-step" id="step-p5">
+                  <div class="step-caption"><span>05</span><div><strong>支付成功，等待接诊</strong><small>结果明确，等待可感知</small></div></div>
+                  <div class="phone-shell patient-phone">
+                    <div class="phone-top"><span>15:06</span><i></i><span>▮▮ 79%</span></div>
+                    <div class="phone-screen room-screen">
+                      <header class="room-head group-room-head"><span>‹</span><div class="group-avatars"><div class="doctor-avatar">林</div><div class="assistant-avatar">✣</div></div><div><strong>林医生咨询室（3）</strong><small><i></i> 等待林医生接诊</small></div><em>•••</em></header>
+                      <div class="payment-success-tip"><span>✓</span><div><strong>支付成功 ¥39</strong><small>图文问诊已创建 · 24 小时有效</small></div></div>
+                      <div class="chat-body">
+                        <div class="ai-row"><div class="mini-ai">✣</div><span><strong>医生智能助手 <em>AI</em></strong><p>问诊已经创建，我正在通知林医生接诊。等待这段时间，我先帮你把最想解决的问题整理好，医生进来就能直接聊重点。</p></span></div>
+                        <div class="accept-wait-card">
+                          <div class="wait-doctor"><div class="doctor-avatar">林</div><i></i></div>
+                          <div><strong>等待林医生接诊</strong><p>已通知医生 · 通常 5 分钟内响应</p></div>
+                          <span>排队中</span>
+                          <footer><i class="done"></i><b>订单已创建</b><em></em><i class="active"></i><b>等待接诊</b><em></em><i></i><b>开始问诊</b></footer>
+                        </div>
+                        <div class="wait-note">可退出当前页面，医生接诊后会通过消息提醒</div>
+                      </div>
+                      <form class="chat-composer" data-reply="收到，我会把这条信息放进预问诊摘要，林医生接诊后可以直接看到。"><button type="button">＋</button><input placeholder="等待时也可以继续补充…" /><button class="send-chat" type="submit">↑</button></form>
+                    </div>
+                    <div class="home-indicator"></div>
+                  </div>
+                </article>
+
+                <div class="connector patient-connector"><span>等待期间</span><i></i><b>→</b><small>智能助手主动预问诊</small></div>
+
+                <article class="phone-step" id="step-p6">
+                  <div class="step-caption"><span>06</span><div><strong>多轮预问诊</strong><small>先把真人沟通的重点问清楚</small></div></div>
+                  <div class="phone-shell patient-phone">
+                    <div class="phone-top"><span>15:08</span><i></i><span>▮▮ 78%</span></div>
+                    <div class="phone-screen room-screen">
+                      <header class="room-head group-room-head"><span>‹</span><div class="group-avatars"><div class="doctor-avatar">林</div><div class="assistant-avatar">✣</div></div><div><strong>林医生咨询室（3）</strong><small><i></i> 智能助手预问诊中</small></div><em>•••</em></header>
+                      <div class="preconsult-banner"><span>✣</span><div><strong>接诊前预问诊</strong><small>你的回答会整理给林医生</small></div><b>2 / 3</b></div>
+                      <div class="chat-body preconsult-chat">
+                        <div class="ai-row"><div class="mini-ai">✣</div><span><strong>医生智能助手 <em>AI</em></strong><p>这次问诊，你最想让林医生帮你解决什么？</p></span></div>
+                        <div class="patient-chat-bubble">主要想知道饮食怎么调，还需不需要吃药。</div>
+                        <div class="ai-row"><div class="mini-ai">✣</div><span><strong>医生智能助手 <em>AI</em></strong><p>明白。最近有明显口渴、多尿或体重下降吗？</p></span></div>
+                        <div class="patient-chat-bubble">都没有。</div>
+                        <div class="ai-row"><div class="mini-ai">✣</div><span><strong>医生智能助手 <em>AI</em></strong><p>好的。现在有在用降糖药或其他长期药物吗？</p></span></div>
+                        <div class="patient-chat-bubble">没有用药。</div>
+                        <div class="preconsult-summary"><span>已整理给医生</span><dl><div><dt>核心诉求</dt><dd>饮食调整、是否用药</dd></div><div><dt>相关症状</dt><dd>无口渴、多尿、体重下降</dd></div><div><dt>当前用药</dt><dd>无</dd></div></dl></div>
+                      </div>
+                      <form class="chat-composer" data-reply="好的，这条也已补充到预问诊摘要里。"><button type="button">＋</button><input placeholder="继续回答或补充…" /><button class="send-chat" type="submit">↑</button></form>
+                    </div>
+                    <div class="home-indicator"></div>
+                  </div>
+                </article>
+
+                <div class="connector patient-connector"><span>医生接诊</span><i></i><b>→</b><small>咨询室推送接入卡</small></div>
+
+                <article class="phone-step" id="step-p7">
+                  <div class="step-caption"><span>07</span><div><strong>医生接入卡</strong><small>点击开启真人 IM 会话层</small></div></div>
+                  <div class="phone-shell patient-phone">
+                    <div class="phone-top"><span>15:12</span><i></i><span>▮▮ 76%</span></div>
+                    <div class="phone-screen room-screen doctor-entry-screen">
+                      <header class="room-head group-room-head"><span>‹</span><div class="group-avatars"><div class="doctor-avatar">林</div><div class="assistant-avatar">✣</div></div><div><strong>林医生咨询室（3）</strong><small><i></i> 林医生已接诊</small></div><em>•••</em></header>
+                      <div class="chat-body">
+                        <div class="system-time">15:12</div>
+                        <div class="doctor-joined-card">
+                          <div class="doctor-avatar">林</div>
+                          <div><span>林夏医生已接诊</span><strong>现在可以和医生本人沟通</strong><p>智能助手的预问诊记录将同步给医生</p></div>
+                          <button id="openDoctorImBtn" type="button">进入真人对话 <b>→</b></button>
+                        </div>
+                        <div class="ai-row"><div class="mini-ai">✣</div><span><strong>医生智能助手 <em>AI</em></strong><p>林医生已经进来了。点击上面的卡片，就能进入本次限时真人对话；之前的内容我都帮你同步好了。</p></span></div>
+                      </div>
+                      <form class="chat-composer" data-reply="林医生已接诊，请点击上方卡片进入真人对话。"><button type="button">＋</button><input placeholder="咨询室消息…" /><button class="send-chat" type="submit">↑</button></form>
+                      <div class="doctor-im-backdrop" id="doctorImBackdrop"></div>
+                      <section class="doctor-im-sheet" id="doctorImSheet" aria-label="与林医生真人对话">
+                        <header><button id="closeDoctorImBtn" type="button">⌄</button><div class="doctor-avatar">林</div><div><strong>林夏医生</strong><small>真人在线 · 剩余 29:48</small></div><span>•••</span></header>
+                        <div class="history-imported">✓ 已同步智能助手预问诊记录 6 条</div>
+                        <div class="sheet-welcome"><strong>林夏医生</strong><p>你好，你前面补充的信息我都看到了。我们从饮食和是否需要用药开始聊。</p></div>
+                        <form><button type="button">＋</button><input placeholder="回复林医生…" /><button type="button">↑</button></form>
+                      </section>
+                    </div>
+                    <div class="home-indicator"></div>
+                  </div>
+                </article>
+
+                <div class="connector patient-connector"><span>打开 IM</span><i></i><b>→</b><small>历史记录自动推送</small></div>
+
+                <article class="phone-step" id="step-p8">
+                  <div class="step-caption"><span>08</span><div><strong>限时真人多轮对话</strong><small>独立 IM，保留咨询室上下文</small></div></div>
+                  <div class="phone-shell patient-phone">
+                    <div class="phone-top"><span>15:18</span><i></i><span>▮▮ 73%</span></div>
+                    <div class="phone-screen im-demo-screen">
+                      <div class="im-underlay"><span>林医生咨询室</span><p>真人会话进行中</p></div>
+                      <section class="doctor-im-sheet open persistent-sheet">
+                        <header><button type="button">⌄</button><div class="doctor-avatar">林</div><div><strong>林夏医生</strong><small><i></i> 真人在线</small></div><span class="time-limit">剩余 23:41</span></header>
+                        <div class="history-imported">✓ 已同步核验记录与预问诊对话</div>
+                        <div class="im-messages">
+                          <div class="doctor-im-message"><b>林医生</b><p>先不用吃药。你目前的身高和体重大概是多少？平时主食吃得多吗？</p></div>
+                          <div class="patient-im-message">身高 162，体重 68 公斤，晚饭主食比较多。</div>
+                          <div class="doctor-im-message"><b>林医生</b><p>体重稍偏高。建议晚餐主食先减少约四分之一，增加蔬菜和蛋白质，不要完全不吃碳水。</p></div>
+                          <div class="patient-im-message">水果还能吃吗？</div>
+                          <div class="doctor-im-message"><b>林医生</b><p>可以，放在两餐之间，每次一个拳头大小，先避免果汁和高糖水果。</p></div>
+                        </div>
+                        <div class="duration-notice">本次真人对话剩余 23 分钟，结束前可继续追问</div>
+                        <form class="im-composer"><button type="button">＋</button><input placeholder="回复林医生…" /><button type="button">↑</button></form>
+                      </section>
+                    </div>
+                    <div class="home-indicator"></div>
+                  </div>
+                </article>
+
+                <div class="connector patient-connector"><span>会话结束</span><i></i><b>→</b><small>回到咨询室沉淀结果</small></div>
+
+                <article class="phone-step" id="step-p9">
+                  <div class="step-caption"><span>09</span><div><strong>问诊小结与指导</strong><small>智能助手归纳真人问诊结果</small></div></div>
+                  <div class="phone-shell patient-phone">
+                    <div class="phone-top"><span>15:42</span><i></i><span>▮▮ 68%</span></div>
+                    <div class="phone-screen room-screen summary-screen">
+                      <header class="room-head group-room-head"><span>‹</span><div class="group-avatars"><div class="doctor-avatar">林</div><div class="assistant-avatar">✣</div></div><div><strong>林医生咨询室（3）</strong><small>真人问诊已结束</small></div><em>•••</em></header>
+                      <div class="session-ended-tip">✓ 与林医生的真人会话已结束 · 共 27 分钟</div>
+                      <div class="chat-body">
+                        <div class="ai-row"><div class="mini-ai">✣</div><span><strong>医生智能助手 <em>AI</em></strong><p>刚才和林医生聊到的重点，我已经整理成小结了。之后复查时，也可以直接从这里回看。</p></span></div>
+                        <article class="consult-summary-card">
+                          <header><span>真人问诊小结</span><small>基于 12 轮医患对话生成</small></header>
+                          <section><label>医生判断</label><p>目前不需要自行用药，先通过饮食、体重管理并按期复查。</p></section>
+                          <section><label>本次关键信息</label><ul><li>162 cm / 68 kg，BMI 约 25.9</li><li>晚餐主食偏多，无典型高血糖症状</li><li>无降糖药及其他长期用药</li></ul></section>
+                          <section class="guidance-section"><label>接下来这样做</label><ol><li><b>1</b><span>晚餐主食减少约 1/4，增加蔬菜和蛋白质</span></li><li><b>2</b><span>水果放在两餐之间，每次约一个拳头</span></li><li><b>3</b><span>1～2 周后复查空腹血糖和 HbA1c</span></li></ol></section>
+                          <footer>如出现明显口渴、多尿或体重下降，请提前就医</footer>
+                        </article>
+                      </div>
+                      <form class="chat-composer" data-reply="可以，我会继续基于这份问诊小结为你解释和提醒。"><button type="button">＋</button><input placeholder="针对小结继续问智能助手…" /><button class="send-chat" type="submit">↑</button></form>
+                    </div>
+                    <div class="home-indicator"></div>
+                  </div>
+                </article>
+              </div>
+            </section>
+
+            <section class="extension-handoff-zone" aria-label="付费问诊跨端交互">
+              <div class="extension-handoff payment-handoff" id="consult-payment-handoff"><span>↓</span><div><i>跨端交互 C</i><strong>支付成功，创建问诊订单</strong><small>核验上下文 + 预问诊记录自动进入医生端</small></div><span>↓</span></div>
+              <div class="extension-handoff join-handoff" id="consult-join-handoff"><span>↑</span><div><i>跨端交互 D</i><strong>医生接诊，开启真人 IM</strong><small>接诊状态、时长与历史消息同步到患者端</small></div><span>↑</span></div>
+            </section>
+
+            <section class="extension-lane extension-doctor-lane">
+              <header class="lane-header compact-lane-header">
+                <div class="lane-role doctor-role"><span>医生</span></div>
+                <div><span class="eyebrow">DOCTOR CONSULTATION APP</span><h2>医生端 · 接诊与真人会话</h2><p>从多类型待办进入付费问诊，接诊后用 Copilot 辅助限时真人 IM。</p></div>
+                <div class="lane-count">3 个移动界面</div>
+              </header>
+              <div class="extension-grid doctor-extension-grid">
+                <article class="phone-step" id="step-d4">
+                  <div class="step-caption"><span>D4</span><div><strong>多类型订单中心</strong><small>先识别服务类型再进入处理</small></div></div>
+                  <div class="phone-shell doctor-phone">
+                    <div class="phone-top dark-top"><span>15:09</span><i></i><span>▮▮ 70%</span></div>
+                    <div class="phone-screen doctor-mobile consultation-order-hub">
+                      <header class="doctor-home-head"><div><span>下午好</span><strong>林夏医生</strong></div><div class="doctor-avatar">林</div></header>
+                      <div class="order-overview"><div><span>待处理</span><strong>8</strong></div><div><span>图文问诊</span><strong>4</strong></div><div><span>已支付</span><strong>3</strong></div></div>
+                      <div class="order-tabs"><button type="button">全部 <i>8</i></button><button type="button">核验 <i>3</i></button><button class="active" type="button">问诊 <i>4</i></button><button type="button">加号 <i>1</i></button></div>
+                      <div class="consultation-order-list">
+                        <article class="mobile-order active-order"><header><span class="order-type consult-type">图文问诊 · 已支付</span><time>刚刚</time></header><strong>空腹血糖 6.3 是否需要用药？</strong><p>王女士 · 46 岁 · 已完成预问诊 3 项</p><footer><span>¥39</span><b>待接诊 ›</b></footer></article>
+                        <article class="mobile-order"><header><span class="order-type consult-type">图文问诊</span><time>5 分钟前</time></header><strong>甲状腺结节复查报告怎么看？</strong><p>含 2 张检查报告 · 患者在线</p><footer><span>¥39</span><b>待回复 ›</b></footer></article>
+                        <article class="mobile-order"><header><span class="order-type check-type">内容核验</span><time>12 分钟前</time></header><strong>维生素 D 低需要补多久？</strong><p>已补充 2 项信息</p><footer><span>免费</span><b>待处理 ›</b></footer></article>
+                      </div>
+                      <button class="accept-consult-button flow-trigger" data-target="step-d5" type="button">处理首条付费问诊 <span>→</span></button>
+                    </div>
+                    <div class="home-indicator dark-indicator"></div>
+                  </div>
+                </article>
+
+                <div class="ext-doctor-connector first-doctor-connector"><span>进入订单</span><i></i><b>→</b><small>完整上下文自动带入</small></div>
+
+                <article class="phone-step" id="step-d5">
+                  <div class="step-caption"><span>D5</span><div><strong>付费问诊待接诊</strong><small>信息齐全，一键接诊</small></div></div>
+                  <div class="phone-shell doctor-phone">
+                    <div class="phone-top dark-top"><span>15:10</span><i></i><span>▮▮ 69%</span></div>
+                    <div class="phone-screen doctor-mobile consult-order-screen">
+                      <header class="doctor-nav"><span>‹</span><div><strong>图文问诊订单</strong><small>#C20260711-0286 · 已支付</small></div><em>•••</em></header>
+                      <div class="paid-order-strip"><span>¥39 已支付</span><b>等待接诊 03:12</b></div>
+                      <div class="consult-order-scroll">
+                        <section class="consult-patient-head"><div class="patient-round">王</div><div><strong>王女士 · 46 岁</strong><p>核验服务升级 · 无急症风险</p></div><span>普通</span></section>
+                        <section class="doctor-context-card"><label>本次主要诉求</label><h3>饮食怎么调整，空腹血糖 6.3 是否需要用药？</h3></section>
+                        <section class="doctor-context-card"><label>前序核验结论</label><p>单次 6.3 不能诊断糖尿病，建议复查空腹血糖和 HbA1c。</p></section>
+                        <section class="doctor-context-card pre-brief"><div><label>智能助手预问诊</label><span>已完成 3 项</span></div><dl><div><dt>症状</dt><dd>无口渴、多尿、体重下降</dd></div><div><dt>用药</dt><dd>无</dd></div><div><dt>关注点</dt><dd>饮食、是否用药</dd></div></dl></section>
+                      </div>
+                      <button class="accept-consult-button" id="acceptConsultBtn" type="button">接诊并开始对话 <span>→</span></button>
+                    </div>
+                    <div class="home-indicator dark-indicator"></div>
+                  </div>
+                </article>
+
+                <div class="ext-doctor-connector second-doctor-connector"><span>医生接诊</span><i></i><b>→</b><small>推送接入状态与限时 IM</small></div>
+
+                <article class="phone-step" id="step-d6">
+                  <div class="step-caption"><span>D6</span><div><strong>医生真人 IM</strong><small>Copilot 推荐回复可直接采用</small></div></div>
+                  <div class="phone-shell doctor-phone">
+                    <div class="phone-top dark-top"><span>15:18</span><i></i><span>▮▮ 66%</span></div>
+                    <div class="phone-screen doctor-mobile doctor-live-im">
+                      <header class="doctor-nav live-doctor-nav"><span>‹</span><div><strong>王女士 · 图文问诊</strong><small><i></i> 患者在线</small></div><em class="doctor-timer">23:41</em></header>
+                      <div class="doctor-ai-brief"><div class="copilot-icon">✣</div><div><strong>预问诊摘要</strong><p>诉求：饮食与用药 · 无典型症状 · 无当前用药</p></div><button type="button">展开</button></div>
+                        <div class="doctor-im-scroll">
+                        <div class="doctor-side-message">你好，你前面补充的信息我都看到了。先不用吃药，我们重点聊饮食和复查。</div>
+                        <div class="patient-side-message"><span>患者</span><p>我身高 162，体重 68 公斤，晚饭主食比较多。</p></div>
+                        <div class="doctor-side-message">体重稍偏高。晚餐主食先减少约四分之一，多加蔬菜和蛋白质。</div>
+                        <div class="patient-side-message"><span>患者</span><p>水果还能吃吗？</p></div>
+                          <div class="doctor-side-message">可以，放在两餐之间，每次一个拳头大小，先避免果汁。</div>
+                        </div>
+                        <section class="doctor-copilot-reply">
+                          <header><div class="copilot-icon">✣</div><div><strong>Copilot 推荐回复</strong><small>结合本次问诊上下文生成</small></div><span>AI</span></header>
+                          <p>水果可以吃，建议放在两餐之间，每次约一个拳头大小；优先苹果、梨或莓果，先避免果汁和高糖水果。</p>
+                          <footer><button id="copilotInsertBtn" type="button">插入编辑</button><button id="copilotSendBtn" type="button">直接发送</button></footer>
+                        </section>
+                        <div class="doctor-quick-tools"><button type="button">复查建议</button><button type="button">饮食模板</button><button type="button">发送图片</button></div>
+                      <form class="doctor-im-composer"><button type="button">＋</button><input id="doctorLiveInput" placeholder="回复患者…" /><button type="button">↑</button></form>
+                      <button class="end-consult-button" id="endConsultBtn" type="button">结束本次问诊</button>
+                    </div>
+                    <div class="home-indicator dark-indicator"></div>
+                  </div>
+                </article>
+              </div>
+            </section>
+          </div>
+        </div>
+      </section>
+
+      <section class="paid-trace-section" aria-labelledby="paidTraceTitle">
+        <header class="trace-header">
+          <div>
+            <span class="eyebrow">PAID CONSULTATION MODEL TRAINING TRACE</span>
+            <h2 id="paidTraceTitle">把“用户输入 → AI 生成 → 医生动作”保留为训练回合。</h2>
+            <p>预问诊训练智能助手如何追问；真人问诊训练 Copilot 如何生成，并以医生的直发或编辑后发作为最终监督信号。</p>
+          </div>
+          <div class="trace-id"><span>TRACE ID</span><strong>consult_20260711_0286</strong><small>关联核验 Trace · 已脱敏</small></div>
+        </header>
+        <div class="paid-trace-flow" aria-label="付费问诊训练数据事件链">
+          <article class="trace-event question-event"><header><span>01</span><b>AI 生成</b></header><strong>预问诊第 1 题</strong><p>“这次问诊，你最想让林医生帮你解决什么？”</p><code>assistant.preconsult_question_1</code></article>
+          <div class="trace-arrow"><i></i><span>→</span></div>
+          <article class="trace-event user-event"><header><span>02</span><b>用户输入</b></header><strong>回答第 1 题</strong><p>“想知道饮食怎么调，还需不需要吃药。”</p><code>user.preconsult_answer_1</code></article>
+          <div class="trace-arrow"><i></i><span>→</span></div>
+          <article class="trace-event question-event"><header><span>03</span><b>AI 生成</b></header><strong>预问诊第 2 题</strong><p>“最近有明显口渴、多尿或体重下降吗？”</p><code>assistant.preconsult_question_2</code></article>
+          <div class="trace-arrow"><i></i><span>→</span></div>
+          <article class="trace-event user-event"><header><span>04</span><b>用户输入</b></header><strong>回答第 2 题</strong><p>“都没有。”</p><code>user.preconsult_answer_2</code></article>
+          <div class="trace-arrow"><i></i><span>→</span></div>
+          <article class="trace-event question-event"><header><span>05</span><b>AI 生成</b></header><strong>预问诊第 3 题</strong><p>“现在有在用降糖药或其他长期药物吗？”</p><code>assistant.preconsult_question_3</code></article>
+          <div class="trace-arrow"><i></i><span>→</span></div>
+          <article class="trace-event user-event"><header><span>06</span><b>用户输入</b></header><strong>回答第 3 题</strong><p>“没有用药。”</p><code>user.preconsult_answer_3</code></article>
+          <div class="trace-arrow"><i></i><span>→</span></div>
+          <article class="trace-event copilot-event"><header><span>07</span><b>Copilot 生成</b></header><strong>首条接诊建议</strong><p>基于核验与三轮预问诊生成候选回复</p><code>copilot.reply_candidate_1</code></article>
+          <div class="trace-arrow"><i></i><span>→</span></div>
+          <article class="trace-event doctor-event"><header><span>08</span><b>医生动作</b></header><strong>编辑后发送</strong><p>选择候选回复，补充饮食建议后发送</p><code>doctor.edit_and_send_1</code></article>
+          <div class="trace-arrow"><i></i><span>→</span></div>
+          <article class="trace-event user-event"><header><span>09</span><b>用户输入</b></header><strong>真人问诊追问</strong><p>“水果还能吃吗？”</p><code>user.im_message_1</code></article>
+          <div class="trace-arrow"><i></i><span>→</span></div>
+          <article class="trace-event copilot-event"><header><span>10</span><b>Copilot 生成</b></header><strong>推荐回复</strong><p>生成水果摄入的具体建议与注意事项</p><code>copilot.reply_candidate_2</code></article>
+          <div class="trace-arrow"><i></i><span>→</span></div>
+          <article class="trace-event doctor-event"><header><span>11</span><b>医生动作</b></header><strong>直接发送</strong><p>采纳推荐回复，直接以医生身份发送</p><code>doctor.direct_send_2</code></article>
+        </div>
+      </section>
+
     </main>
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
-    <script src="/app.js" type="module"></script>
+    <script src="app.js" type="module"></script>
   </body>
 </html>

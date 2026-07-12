@@ -1,9 +1,15 @@
-const steps = ["step-p1", "step-p2", "bridge-submit", "step-d1", "step-d2", "step-d3", "bridge-response", "step-p4"];
+const steps = ["step-p1", "step-p2", "bridge-submit", "step-d1", "step-d2", "step-d3", "bridge-response", "step-p4", "step-p5", "consult-payment-handoff", "step-p6", "step-d4", "step-d5", "consult-join-handoff", "step-p7", "step-p8", "step-d6", "step-p9"];
 const viewport = document.querySelector("#blueprintViewport");
 const playButton = document.querySelector("#playFlowBtn");
 const toast = document.querySelector("#toast");
 const editButton = document.querySelector("#editReplyBtn");
 const replyText = document.querySelector("#doctorReplyText");
+const openDoctorImButton = document.querySelector("#openDoctorImBtn");
+const closeDoctorImButton = document.querySelector("#closeDoctorImBtn");
+const doctorImSheet = document.querySelector("#doctorImSheet");
+const doctorImBackdrop = document.querySelector("#doctorImBackdrop");
+const doctorLiveInput = document.querySelector("#doctorLiveInput");
+const copilotReply = "水果可以吃，建议放在两餐之间，每次约一个拳头大小；优先苹果、梨或莓果，先避免果汁和高糖水果。";
 let playTimer;
 let toastTimer;
 let playing = false;
@@ -65,6 +71,51 @@ document.querySelectorAll(".chat-composer").forEach((form) => {
   });
 });
 
+document.querySelector(".consult-card .cream-button")?.addEventListener("click", () => focusStep("step-p5"));
+
+openDoctorImButton?.addEventListener("click", () => {
+  doctorImSheet.classList.add("open");
+  doctorImBackdrop.classList.add("open");
+  showToast("已打开与林医生的真人对话，预问诊记录已同步");
+});
+
+function closeDoctorIm() {
+  doctorImSheet?.classList.remove("open");
+  doctorImBackdrop?.classList.remove("open");
+}
+
+closeDoctorImButton?.addEventListener("click", closeDoctorIm);
+doctorImBackdrop?.addEventListener("click", closeDoctorIm);
+
+document.querySelector("#acceptConsultBtn")?.addEventListener("click", () => {
+  focusStep("consult-join-handoff");
+  window.setTimeout(() => focusStep("step-p7", false), 900);
+});
+
+document.querySelector("#endConsultBtn")?.addEventListener("click", () => {
+  showToast("问诊已结束，智能助手正在生成问诊小结");
+  window.setTimeout(() => focusStep("step-p9", false), 700);
+});
+
+document.querySelector("#copilotInsertBtn")?.addEventListener("click", () => {
+  if (!doctorLiveInput) return;
+  doctorLiveInput.value = copilotReply;
+  doctorLiveInput.focus();
+  showToast("Copilot 推荐回复已插入，可继续编辑");
+});
+
+document.querySelector("#copilotSendBtn")?.addEventListener("click", () => {
+  const messageList = document.querySelector(".doctor-live-im .doctor-im-scroll");
+  if (!messageList) return;
+  const message = document.createElement("div");
+  message.className = "doctor-side-message";
+  message.textContent = copilotReply;
+  messageList.appendChild(message);
+  if (doctorLiveInput) doctorLiveInput.value = "";
+  messageList.scrollTo({ top: messageList.scrollHeight, behavior: "smooth" });
+  showToast("已以医生身份发送 Copilot 推荐回复");
+});
+
 playButton.addEventListener("click", () => {
   if (playing) {
     stopTour();
@@ -93,17 +144,21 @@ editButton.addEventListener("click", () => {
 
 function focusStep(id, announce = true) {
   document.querySelectorAll(".phone-step").forEach((step) => step.classList.remove("active-step"));
-  document.querySelectorAll(".handoff-line").forEach((bridge) => bridge.classList.remove("active-bridge"));
+  document.querySelectorAll(".handoff-line, .extension-handoff").forEach((bridge) => bridge.classList.remove("active-bridge"));
   const target = document.getElementById(id);
   if (!target) return;
 
   if (target.classList.contains("phone-step")) target.classList.add("active-step");
-  if (target.classList.contains("handoff-line")) target.classList.add("active-bridge");
+  if (target.classList.contains("handoff-line") || target.classList.contains("extension-handoff")) target.classList.add("active-bridge");
 
-  const canvasRect = document.querySelector(".blueprint-canvas").getBoundingClientRect();
+  const localViewport = target.closest(".blueprint-viewport, .extension-viewport") || viewport;
+  const localCanvas = target.closest(".blueprint-canvas, .extension-canvas") || document.querySelector(".blueprint-canvas");
+  const canvasRect = localCanvas.getBoundingClientRect();
   const targetRect = target.getBoundingClientRect();
-  const nextLeft = viewport.scrollLeft + targetRect.left - canvasRect.left - (viewport.clientWidth - targetRect.width) / 2;
-  viewport.scrollTo({ left: Math.max(0, nextLeft), behavior: "smooth" });
+  const nextLeft = localViewport.scrollLeft + targetRect.left - canvasRect.left - (localViewport.clientWidth - targetRect.width) / 2;
+  localViewport.scrollTo({ left: Math.max(0, nextLeft), behavior: "smooth" });
+  const section = target.closest(".consultation-extension, .blueprint-viewport");
+  if (section) window.scrollTo({ top: section.getBoundingClientRect().top + window.scrollY - 78, behavior: "smooth" });
 
   if (announce) showToast(stepMessage(id));
 }
@@ -123,6 +178,16 @@ function stepMessage(id) {
     "step-d3": "医生审核、编辑并承担最终发送动作",
     "bridge-response": "跨端回传：医生回答送达患者咨询室",
     "step-p4": "患者获得核验结论，并可继续真人问诊",
+    "step-p5": "支付成功：问诊订单已创建，等待医生接诊",
+    "step-p6": "医生智能助手正在进行接诊前预问诊",
+    "consult-payment-handoff": "付费问诊订单与完整上下文已送达医生端",
+    "step-d4": "医生从多类型订单中心定位付费问诊",
+    "step-d5": "医生查看付费问诊订单与预问诊摘要",
+    "consult-join-handoff": "医生已接诊，患者端即将开启真人 IM",
+    "step-p7": "医生接入卡已推送到患者咨询室",
+    "step-p8": "患者与医生正在限时真人 IM 中多轮沟通",
+    "step-d6": "医生端真人会话进行中，Copilot 可推荐回复",
+    "step-p9": "问诊结束，智能助手已生成小结与指导建议",
   }[id] || "当前流程步骤";
 }
 
