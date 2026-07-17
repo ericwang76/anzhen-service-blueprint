@@ -5,3 +5,4 @@ design-references/
 .env
 .env.*
 !.env.example
+data/

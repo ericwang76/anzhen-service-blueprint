@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f4f7f4" />
+    <meta name="description" content="安诊真人医生核验与图文问诊 MVP" />
+    <title>安诊 · 真人医生咨询室</title>
+    <link rel="stylesheet" href="product.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="app-header">
+        <a class="brand" href="./" aria-label="安诊首页"><span>✣</span> 安诊</a>
+        <nav class="mode-tabs" aria-label="切换工作台">
+          <a class="mode-tab active" data-view="patient" href="./">患者咨询室</a>
+          <a class="mode-tab" data-view="doctor" href="?view=doctor">医生工作台</a>
+        </nav>
+        <a class="blueprint-link" href="blueprint.html">查看服务蓝图 ↗</a>
+      </header>
+
+      <main>
+        <section id="patientView" class="view active-view">
+          <section id="patientStart" class="patient-start card">
+            <span class="eyebrow">真人医生内容核验</span>
+            <h1>把搜索疑虑，交给真人医生确认。</h1>
+            <p>带上你的搜索问题和想核验的内容；医生智能助手会先补齐必要信息，真人医生负责最后判断。</p>
+            <form id="startCaseForm" class="start-form">
+              <label>你搜索的问题<input id="queryInput" name="query" value="空腹血糖 6.3 正常吗？" maxlength="120" required /></label>
+              <label>想请医生核验的内容<textarea id="checkInput" name="check_content" rows="4" required>百科说空腹血糖在 6.1～7.0 mmol/L 之间，可能属于空腹血糖受损。我这次测到 6.3，需要担心吗？</textarea></label>
+              <button class="primary-button" type="submit">请医生核一下 <span>→</span></button>
+            </form>
+            <p class="safety-note">出现胸痛、呼吸困难、意识异常等紧急情况，请优先前往急诊或联系 120。</p>
+          </section>
+
+          <section id="patientRoom" class="room-layout hidden">
+            <article class="chat-card card">
+              <header class="room-header">
+                <div class="avatar-stack"><span class="doctor-avatar">林</span><span class="ai-avatar">✣</span></div>
+                <div><h2>林医生咨询室 <small>（3）</small></h2><p><i></i> 林医生 · 医生智能助手 · 你</p></div>
+                <span id="statusBadge" class="status-badge">信息收集中</span>
+              </header>
+              <div class="trust-line">✓ 真人医生与智能助手共同服务 · 隐私加密保护</div>
+              <div id="chatMessages" class="chat-messages" aria-live="polite"></div>
+              <form id="patientMessageForm" class="composer">
+                <input id="patientMessageInput" autocomplete="off" placeholder="和医生、智能助手说点什么…" />
+                <button type="submit" aria-label="发送">↑</button>
+              </form>
+            </article>
+            <aside class="case-sidebar">
+              <article class="context-card card">
+                <span class="mini-label">已带入的搜索上下文</span>
+                <strong id="contextQuery"></strong>
+                <p id="contextContent"></p>
+                <div class="context-tags"><span>百度搜索</span><span>百科疑虑段落</span><span>医生可见</span></div>
+              </article>
+              <article class="next-card card" id="patientActionCard"></article>
+            </aside>
+          </section>
+        </section>
+
+        <section id="doctorView" class="view doctor-view">
+          <header class="doctor-intro">
+            <div><span class="eyebrow">林夏医生 · 医生端</span><h1>订单、判断与会话，在一处完成。</h1></div>
+            <button id="refreshOrders" class="quiet-button" type="button">刷新订单</button>
+          </header>
+          <div class="doctor-layout">
+            <aside class="orders-panel card">
+              <header><h2>订单中心</h2><span id="orderCount">0</span></header>
+              <div class="order-tabs"><button class="order-filter active" data-filter="all" type="button">全部</button><button class="order-filter" data-filter="checking" type="button">核验</button><button class="order-filter" data-filter="consult" type="button">问诊</button><button class="order-filter" data-filter="plus" type="button">加号</button></div>
+              <div id="ordersList" class="orders-list"><p class="empty-state">暂时没有待处理订单。先在患者端发起一个核验吧。</p></div>
+            </aside>
+            <section id="doctorLogin" class="doctor-login card hidden">
+              <span class="eyebrow">医生身份验证</span>
+              <h2>登录医生工作台</h2>
+              <p>请输入由平台管理员配置的医生访问口令。患者端与医生端应在不同设备或浏览器会话中使用。</p>
+              <form id="doctorLoginForm"><input id="doctorCodeInput" type="password" autocomplete="current-password" placeholder="医生访问口令" required /><button class="primary-button" type="submit">登录医生端 <span>→</span></button></form>
+            </section>
+            <section id="doctorDetail" class="doctor-detail card">
+              <div class="doctor-empty"><span>✣</span><h2>选择一笔订单</h2><p>患者提交核验后，会在这里展示搜索上下文、补充信息和 Copilot 建议。</p></div>
+            </section>
+          </div>
+        </section>
+      </main>
+    </div>
+    <div id="toast" class="toast" role="status"></div>
+    <script src="product.js"></script>
+  </body>
+</html>

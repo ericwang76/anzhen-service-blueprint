@@ -1,0 +1,12 @@
+services:
+  anzhen:
+    build: .
+    env_file: .env
+    ports:
+      - "8080:8080"
+    volumes:
+      - anzhen_data:/app/data
+    restart: unless-stopped
+
+volumes:
+  anzhen_data:
