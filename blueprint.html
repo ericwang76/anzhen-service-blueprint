@@ -6,7 +6,7 @@
     <meta name="theme-color" content="#faf9f5" />
     <meta name="description" content="安诊真人医生核验服务双端移动流程设计" />
     <title>安诊 · 双端移动服务蓝图</title>
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="styles.css?v=blueprint-v8" />
   </head>
   <body>
     <header class="topbar">
@@ -23,9 +23,8 @@
 
     <main id="top">
       <section class="intro">
-        <span class="eyebrow">MOBILE SERVICE BLUEPRINT · V1.0</span>
-        <h1>从搜索疑虑，到医生确认。</h1>
-        <p>每一屏只推进一个决定：AI 缩短表达成本，真人医生保留最终判断。</p>
+        <span class="eyebrow">MOBILE SERVICE BLUEPRINT · CO-PILOT ROUTING V2.0</span>
+        <h1>真人医生核验百看内容。</h1>
         <div class="flow-summary" aria-label="流程摘要">
           <span>搜索触发</span><b>→</b><span>直接提交真人医生</span><b>→</b><span>真人处理</span><b>→</b><span>回答与问诊转化</span>
         </div>
@@ -36,8 +35,8 @@
           <section class="lane patient-lane" data-lane="patient">
             <header class="lane-header">
               <div class="lane-role patient-role"><span>患者</span></div>
-              <div><span class="eyebrow">PATIENT APP</span><h2>面向患者的咨询室</h2><p>承接疑虑、收集关键信息、反馈进度、呈现医生判断。</p></div>
-              <div class="lane-count">4 个移动界面</div>
+              <div><span class="eyebrow">PATIENT APP</span><h2>面向患者的咨询室</h2><p>承接搜索疑虑、原样提交核验内容、等待并呈现真人医生判断。</p></div>
+              <div class="lane-count">3 个移动界面</div>
             </header>
 
             <div class="flow-grid patient-grid">
@@ -46,10 +45,10 @@
                 <div class="phone-shell patient-phone">
                   <div class="phone-top"><span>14:28</span><i></i><span>▮▮ 86%</span></div>
                   <div class="phone-screen search-screen">
-                    <div class="search-nav"><span class="back">‹</span><div><b>B</b><span>空腹血糖6.3正常吗</span></div><em>•••</em></div>
-                    <div class="search-source">百度健康 · 搜索结果</div>
+                    <div class="search-nav"><span class="back">‹</span><div><b>百</b><span>空腹血糖6.3正常吗</span></div><em>•••</em></div>
+                    <div class="search-source">百看 · 搜索结果</div>
                     <article class="result-card">
-                      <span class="source-badge">百科 · 三甲医生审校</span>
+                      <span class="source-badge">百看 · 三甲医生审校</span>
                       <h3>空腹血糖正常值及异常范围</h3>
                       <p>成年人空腹血糖通常为 3.9～6.1 mmol/L。6.1～7.0 之间时，可能属于空腹血糖受损……</p>
                       <div class="content-fade"><i></i><i></i></div>
@@ -68,7 +67,7 @@
               <div class="connector patient-connector" aria-label="分配医生并带入上下文"><span>分配医生</span><i></i><b>→</b><small>Query + 核验内容自动带入</small></div>
 
               <article class="phone-step" id="step-p2" data-index="2">
-                <div class="step-caption"><span>02</span><div><strong>直接提交真人医生</strong><small>要验证的信息原样进入医生待办</small></div></div>
+                <div class="step-caption"><span>02</span><div><strong>咨询室等待真人核验</strong><small>信息原样送达，林医生正在查看</small></div></div>
                 <div class="phone-shell patient-phone">
                   <div class="phone-top"><span>14:28</span><i></i><span>▮▮ 86%</span></div>
                   <div class="phone-screen room-screen">
@@ -77,52 +76,23 @@
                     <div class="chat-body">
                       <div class="group-system">林夏医生、医生智能助手和你已进入咨询室</div>
                       <div class="query-bubble context-pack">
-                        <div class="context-head"><span>来自百度搜索 · 已带入咨询室</span><b>查看原文 ›</b></div>
+                        <div class="context-head"><span>来自百看搜索 · 已带入咨询室</span><b>查看原文 ›</b></div>
                         <label>你的搜索问题</label><strong>空腹血糖 6.3 正常吗？</strong>
-                        <div class="source-preview"><span>百度百科 · 空腹血糖正常值及异常范围</span><p>“空腹血糖在 6.1～7.0 mmol/L 之间时，可能属于空腹血糖受损……”</p></div>
-                        <div class="context-meta"><span>百科内容</span><span>三甲医生审校</span><span>已截取疑虑段落</span></div>
+                        <div class="source-preview"><span>百看 · 空腹血糖正常值及异常范围</span><p>“空腹血糖在 6.1～7.0 mmol/L 之间时，可能属于空腹血糖受损……”</p></div>
+                        <div class="context-meta"><span>百看内容</span><span>三甲医生审校</span><span>已截取疑虑段落</span></div>
                       </div>
-                      <div class="ai-row"><div class="mini-ai">✓</div><span><strong>已提交给林医生</strong><p>你想验证的百科段落和搜索问题已原样发送给真人医生。无需再补充信息，医生处理后会直接在这里回复。</p></span></div>
-                                            <div class="live-dialogue" id="liveDialogue" hidden></div>
-                                            <div class="question-panel waiting-panel">
-                                              <div class="q-progress"><span>等待真人处理</span><b>预计 3 分钟内</b></div>
-                                              <i class="progress-bar"></i>
-                                              <h3>林医生正在查看这段内容</h3>
-                                              <button class="selected" type="button">百科原文与搜索 Query 已同步</button>
-                                              <button type="button">用户无需填写补充信息</button>
-                                              <button type="button">有回复后自动提醒</button>
-                                            </div>
-                                            <button class="primary-action" id="submitCheckBtn" type="button">已提交，等待医生回复</button>
-                      <div class="scroll-hint">上下滑动查看完整对话</div>
-                    </div>
-                    <form class="chat-composer" data-reply="收到，我会把这条信息一起整理给林医生。我们继续补充下面的信息就好。"><button type="button" aria-label="添加内容">＋</button><input autocomplete="off" placeholder="和医生、智能助手说点什么…" /><button class="send-chat" type="submit" aria-label="发送">↑</button></form>
-                  </div>
-                  <div class="home-indicator"></div>
-                </div>
-              </article>
-
-              <div class="connector patient-connector"><span>提交成功</span><i></i><b>→</b><small>即时反馈，不让用户猜进度</small></div>
-
-              <article class="phone-step" id="step-p3" data-index="3">
-                <div class="step-caption"><span>03</span><div><strong>医生核验中</strong><small>等待也有明确状态</small></div></div>
-                <div class="phone-shell patient-phone">
-                  <div class="phone-top"><span>14:30</span><i></i><span>▮▮ 84%</span></div>
-                  <div class="phone-screen room-screen">
-                    <header class="room-head group-room-head"><span>‹</span><div class="group-avatars"><div class="doctor-avatar">林</div><div class="assistant-avatar">✣</div></div><div><strong>林医生咨询室（3）</strong><small><i></i> 林医生 · 医生智能助手 · 你</small></div><em>•••</em></header>
-                    <div class="trust-line">✓ 真人医生与智能助手共同服务 · 隐私加密保护</div>
-                    <div class="chat-body waiting-body">
-                      <div class="my-summary"><strong>我已补充</strong><p>晨起空腹 10 小时 · 首次发现偏高 · 母亲有糖尿病</p></div>
-                      <div class="ai-row"><div class="mini-ai">✣</div><span><strong>医生智能助手 <em>AI</em></strong><p>好，百科内容、血糖 6.3 和这 3 项信息已一起送给林医生。我会在这里同步进度，医生回复后马上提醒你。</p></span></div>
-                      <div class="waiting-panel">
+                      <div class="ai-row"><div class="mini-ai">✓</div><span><strong>已提交给林医生</strong><p>搜索问题和你圈定的百看段落已原样发送。本环节不做 AI 追问，林医生会直接核验并回复。</p></span></div>
+                      <div class="waiting-panel direct-doctor-waiting">
                         <div class="orbit"><div class="doctor-avatar">林</div><i></i></div>
                         <strong>林医生正在核验</strong>
-                        <p>会结合你的个人情况判断，请稍等片刻</p>
+                        <p>医生正结合你提交的核验内容判断，请稍等片刻</p>
                         <span>预计 3 分钟内回复</span>
                         <div class="waiting-steps"><b class="done">✓ 信息已送达</b><i></i><b class="active">医生查看中</b><i></i><b>回答送达</b></div>
                       </div>
                       <div class="soft-tip">可退出此页面，医生回复后会通过消息通知你</div>
+                      <div class="scroll-hint">上下滑动查看完整对话</div>
                     </div>
-                    <form class="chat-composer" data-reply="收到，我会把这条补充同步给林医生。核验还在进行，回复后我马上告诉你。"><button type="button" aria-label="添加内容">＋</button><input autocomplete="off" placeholder="继续补充，智能助手会及时回应…" /><button class="send-chat" type="submit" aria-label="发送">↑</button></form>
+                    <form class="chat-composer" data-reply="收到，这条消息会原样同步给林医生，不会触发 AI 补充追问。"><button type="button" aria-label="添加内容">＋</button><input autocomplete="off" placeholder="补充给真人医生（可选）…" /><button class="send-chat" type="submit" aria-label="发送">↑</button></form>
                   </div>
                   <div class="home-indicator"></div>
                 </div>
@@ -140,8 +110,8 @@
                     <div class="chat-body">
                       <div class="doctor-label"><div class="doctor-avatar">林</div><span><strong>林夏 主任医师</strong><small>已实名认证 · 15:02</small></span></div>
                       <article class="doctor-answer">
-                        <header><span>医生核验结论</span><strong>百科内容基本准确，但要结合复查判断。</strong></header>
-                        <p>单次 6.3 不能诊断糖尿病。结合首次发现偏高且有家族史，建议 1～2 周内复查。</p>
+                        <header><span>医生核验结论</span><strong>百看内容基本准确，但要结合复查判断。</strong></header>
+                        <p>单次 6.3 不能诊断糖尿病。建议确认检测条件，并在 1～2 周内复查后再结合完整情况判断。</p>
                         <ul><li><b>1</b>复查空腹血糖</li><li><b>2</b>加查糖化血红蛋白</li><li><b>3</b>反复偏高到内分泌科</li></ul>
                         <div class="doctor-sign">林夏医生</div>
                       </article>
@@ -159,10 +129,10 @@
           <section class="handoff-zone" aria-label="患者端与医生端交互">
             <div class="handoff-line submit-line" id="bridge-submit">
               <span class="arrow-down">↓</span>
-              <div><i>跨端交互 A</i><strong>提交真人 Check 服务单</strong><small>搜索 Query + 核验内容 + 3 项个性化信息</small></div>
+              <div><i>跨端交互 A</i><strong>提交真人 Check 服务单</strong><small>搜索 Query + 圈定百看内容原样送达</small></div>
               <span class="arrow-down">↓</span>
             </div>
-            <div class="handoff-center"><span>AI 结构化信息</span><i></i><span>真人承担判断</span></div>
+            <div class="handoff-center"><span>搜索上下文原样带入</span><i></i><span>真人承担判断</span></div>
             <div class="handoff-line response-line" id="bridge-response">
               <span class="arrow-up">↑</span>
               <div><i>跨端交互 B</i><strong>医生核验回答送达</strong><small>医生最终确认内容 + 服务完成状态</small></div>
@@ -174,7 +144,7 @@
             <header class="lane-header">
               <div class="lane-role doctor-role"><span>医生</span></div>
               <div><span class="eyebrow">DOCTOR APP</span><h2>医生使用的医生端</h2><p>快速理解服务单、用 Copilot 降低书写成本、由医生确认发送。</p></div>
-              <div class="lane-count">3 个移动界面</div>
+              <div class="lane-count">2 个移动界面</div>
             </header>
 
             <div class="flow-grid doctor-grid">
@@ -190,7 +160,7 @@
                     <div class="order-overview"><div><span>待处理</span><strong>8</strong></div><div><span>今日完成</span><strong>12</strong></div><div><span>平均响应</span><strong>2′16″</strong></div></div>
                     <div class="order-tabs"><button class="active" type="button">全部 <i>8</i></button><button type="button">核验 <i>3</i></button><button type="button">问诊 <i>4</i></button><button type="button">加号 <i>1</i></button></div>
                     <div class="order-list">
-                      <article class="mobile-order active-order"><header><span class="order-type check-type">内容核验</span><time>刚刚</time></header><strong>空腹血糖 6.3 正常吗？</strong><p>百度百科内容核验 · 已补充 3 项信息</p><footer><span>女 · 46 岁</span><b>待处理 ›</b></footer></article>
+                      <article class="mobile-order active-order"><header><span class="order-type check-type">内容核验</span><time>刚刚</time></header><strong>空腹血糖 6.3 正常吗？</strong><p>百看内容核验 · 搜索上下文已原样带入</p><footer><span>女 · 46 岁</span><b>待处理 ›</b></footer></article>
                       <article class="mobile-order"><header><span class="order-type consult-type">图文问诊</span><time>3 分钟前</time></header><strong>甲状腺结节复查报告怎么看？</strong><p>患者追问 · 含 2 张检查报告</p><footer><span>女 · 38 岁</span><b>待回复 ›</b></footer></article>
                       <article class="mobile-order"><header><span class="order-type plus-type">门诊加号</span><time>8 分钟前</time></header><strong>希望加下周二上午的专家号</strong><p>既往就诊患者 · 资料已确认</p><footer><span>男 · 52 岁</span><b>待确认 ›</b></footer></article>
                       <button class="teal-button flow-trigger" data-target="step-d2" type="button">处理首条核验订单 <span>→</span></button>
@@ -211,59 +181,23 @@
                     <section class="doctor-info-sheet">
                       <div class="sheet-head"><span>用户 Check 信息</span><b>女 · 46 岁</b></div>
                       <div class="info-block"><label>用户 Query</label><h3>空腹血糖 6.3 正常吗？</h3></div>
-                      <div class="info-block"><label>想核验的百科内容</label><small>百度百科 · 空腹血糖正常值及异常范围</small><blockquote>“成年人空腹血糖正常范围通常为 3.9～6.1 mmol/L。空腹血糖在 6.1～7.0 mmol/L 之间时，可能属于空腹血糖受损。”</blockquote></div>
-                      <div class="info-block"><label>用户补充信息</label><dl><div><dt>测量条件</dt><dd>晨起空腹 10 小时</dd></div><div><dt>既往情况</dt><dd>首次发现偏高</dd></div><div><dt>风险因素</dt><dd>母亲有糖尿病</dd></div></dl></div>
+                      <div class="info-block"><label>想核验的百看内容</label><small>百看 · 空腹血糖正常值及异常范围</small><blockquote>“成年人空腹血糖正常范围通常为 3.9～6.1 mmol/L。空腹血糖在 6.1～7.0 mmol/L 之间时，可能属于空腹血糖受损。”</blockquote></div>
                     </section>
-                    <div class="copilot-inline-head"><div class="copilot-icon">✣</div><span><strong>Copilot 预生成回复</strong><small>2 个文心 lite + 1 个 gpt-5.6sol · 点击选择</small></span></div>
-                                        <div class="full-draft-carousel">
-                                          <button class="full-draft compact-draft selected" type="button" data-reply="这段百科内容基本准确。你这次空腹血糖 6.3 mmol/L 略高于一般参考上限，但单次结果不能诊断糖尿病，更适合理解为需要复查确认。\n\n建议保持正常饮食，1～2 周内复查空腹血糖，并同步检查糖化血红蛋白（HbA1c）。如果复查仍 ≥6.1 mmol/L，再到内分泌科进一步评估。">
-                                            <header><span><i>A</i><strong>文心 lite · 简明结论</strong></span><b>✓ 已选择</b></header>
-                                            <p>这段百科内容基本准确。空腹血糖 6.3 mmol/L 略高于一般参考上限，但单次结果不能诊断糖尿病。</p>
-                                            <p>建议 1～2 周内复查空腹血糖，并同步检查糖化血红蛋白（HbA1c）。</p>
-                                            <footer><span>边界清楚</span><span>适合快速回复</span><button class="voice-edit" type="button">语音编辑</button></footer>
-                                          </button>
-                                          <button class="full-draft compact-draft" type="button" data-reply="先不用太紧张。这段百科对正常范围和空腹血糖受损的描述基本没问题，但你这次 6.3 mmol/L 只能说明结果偏高，需要结合采血条件和复查结果判断。\n\n如果近期熬夜、感染、压力大或饮食变化明显，也可能影响一次结果。建议按正常饮食生活 1～2 周后复查空腹血糖和 HbA1c。">
-                                            <header><span><i>B</i><strong>文心 lite · 安抚解释</strong></span><b>可选</b></header>
-                                            <p>先不用太紧张。百科对范围的描述基本没问题，但这次 6.3 只能说明偏高，需要复查确认。</p>
-                                            <p>近期熬夜、感染、压力或饮食变化也可能影响结果。</p>
-                                            <footer><span>语气温和</span><span>解释更充分</span><button class="voice-edit" type="button">语音编辑</button></footer>
-                                          </button>
-                                          <button class="full-draft compact-draft" type="button" data-reply="从你提供的信息看，6.3 mmol/L 落在空腹血糖受损区间附近，百科原文可以作为参考，但不能替代诊断。更稳妥的处理是复核检测条件、重复检测，并结合 HbA1c 判断近 2～3 个月血糖水平。\n\n如果复查仍偏高，或伴有口渴、多尿、体重下降等症状，应尽快到内分泌科就诊。">
-                                            <header><span><i>C</i><strong>gpt-5.6sol · 结构化建议</strong></span><b>可选</b></header>
-                                            <p>6.3 mmol/L 落在空腹血糖受损区间附近。百科可作参考，但不能替代诊断。</p>
-                                            <p>建议复核检测条件、重复检测，并结合 HbA1c 判断近 2～3 个月血糖水平。</p>
-                                            <footer><span>结构完整</span><span>风险提示清楚</span><button class="voice-edit" type="button">语音编辑</button></footer>
-                                          </button>
-                                        </div>
-                        <p>你看到的百科表述总体没有问题，但“可能属于空腹血糖受损”并不等于已经患糖尿病。空腹血糖 6.3 mmol/L 属于偏高，需要结合检测条件和复查结果判断。</p>
-                        <p>这次是在规范空腹状态下检测，加上母亲有糖尿病，建议 1～2 周后复查空腹血糖和糖化血红蛋白。目前不用过度焦虑，也不建议自行用药。</p>
-                      </button>
-                    </div>
-                    <div class="carousel-guide"><i class="active"></i><i></i><span>左右滑动查看完整回答</span></div>
-                    <div class="quick-send-bar"><span><small>已选回答 A</small><strong>可直接发送或编辑</strong></span><button class="ghost-clinic flow-trigger" data-target="step-d3" type="button">编辑</button><button class="teal-button flow-trigger" data-target="bridge-response" type="button">直接发送</button></div>
+                    <section class="doctor-copilot-reply check-copilot">
+                      <header><div class="copilot-icon">✣</div><div><strong>Copilot 多模型候选</strong><small>文心 lite ×2 / gpt-5.6sol ×1 · 与真人问诊 D6 保持一致</small></div><span>AI</span></header>
+                      <div class="live-model-candidates">
+                        <div class="live-model-card selected" data-check-reply="这段百看内容关于一般参考范围的表述基本准确。单次 6.3 mmol/L 不能作为诊断依据，建议确认检测条件后在 1～2 周内复查。" role="button" tabindex="0"><span>文心 lite · A</span><p>百看内容可作一般参考；建议确认检测条件后复查。</p><small>✓ 已选</small><button class="voice-edit" data-voice-target="check" data-source="文心 lite · A" type="button">🎙 长按 / 点击语音改写</button></div>
+                        <div class="live-model-card" data-check-reply="先不用太紧张。百看内容可以参考，但一次结果仍要结合检测条件和复查结果判断，保持正常作息后复查即可。" role="button" tabindex="0"><span>文心 lite · B</span><p>先安抚，再解释单次结果与复查边界。</p><small>可选</small><button class="voice-edit" data-voice-target="check" data-source="文心 lite · B" type="button">🎙 长按 / 点击语音改写</button></div>
+                        <div class="live-model-card" data-check-reply="百看内容不能替代个体诊断。若重复检测仍偏高，或伴有明显不适，建议及时线下就诊并进一步检查。" role="button" tabindex="0"><span>gpt-5.6sol · C</span><p>强调风险边界、复查与线下就医建议。</p><small>可选</small><button class="voice-edit" data-voice-target="check" data-source="gpt-5.6sol · C" type="button">🎙 长按 / 点击语音改写</button></div>
+                      </div>
+                      <div class="voice-command-card compact-voice"><span>对任一候选长按 / 点击语音键</span><b>“语气更安抚，不提具体阈值，保留复查建议。”</b></div>
+                      <footer><button type="button">语音改写后自动更新候选</button><button class="flow-trigger" data-target="bridge-response" type="button">直接发送</button></footer>
+                    </section>
                   </div>
                   <div class="home-indicator dark-indicator"></div>
                 </div>
               </article>
 
-              <div class="connector doctor-connector"><span>需要调整时</span><i></i><b>→</b><small>一键进入轻量编辑</small></div>
-
-              <article class="phone-step" id="step-d3" data-index="7">
-                <div class="step-caption"><span>07</span><div><strong>轻量编辑并发送</strong><small>常用修改一触即达</small></div></div>
-                <div class="phone-shell doctor-phone">
-                  <div class="phone-top dark-top"><span>14:32</span><i></i><span>▮▮ 70%</span></div>
-                  <div class="phone-screen doctor-mobile editor-mobile">
-                    <header class="doctor-nav"><span>‹</span><div><strong>语音编辑回复</strong><small>可直接说出需要修正的地方</small></div><em>✓</em></header>
-                    <div class="edit-label"><span>AI 回复卡</span><button type="button" id="editReplyBtn">语音编辑</button></div>
-                    <textarea id="doctorReplyText">这段百科内容基本准确。你这次空腹血糖 6.3 mmol/L 高于一般参考上限，但单次结果不能诊断糖尿病，更符合“需要复查确认”的情况。
-
-结合你是首次发现偏高、且有糖尿病家族史，建议保持正常饮食，1～2 周内复查空腹血糖，并同时检查糖化血红蛋白（HbA1c）。如果复查仍 ≥6.1 mmol/L，建议到内分泌科进一步评估。</textarea>
-                    <div class="smart-check"><span>✣ Copilot 检查完成</span><b>可先语音补充修改方向，再生成符合医生表达习惯的回复</b></div>
-                    <div class="send-confirm simple-send"><button class="teal-button flow-trigger" data-target="bridge-response" id="sendReplyBtn" type="button">发送给患者 <span>↑</span></button></div>
-                  </div>
-                  <div class="home-indicator dark-indicator"></div>
-                </div>
-              </article>
             </div>
           </section>
         </div>
@@ -274,7 +208,7 @@
           <div>
             <span class="eyebrow">MODEL TRAINING TRACE</span>
             <h2 id="traceTitle">一次真人核验，沉淀一条可训练轨迹。</h2>
-            <p>从用户带入疑虑，到医生最终发送，每一次输入、生成、选择和修改，都能形成带上下文与人类反馈的训练数据。</p>
+            <p>核验不做 AI 补充追问：直接记录用户输入、三路模型候选、医生语音修订与最终发送动作。</p>
           </div>
           <div class="trace-id"><span>TRACE ID</span><strong>check_20260711_0842</strong><small>已脱敏 · 已获授权 · 可追溯</small></div>
         </header>
@@ -283,71 +217,71 @@
           <article class="trace-event user-event">
             <header><span>01</span><b>用户输入</b></header>
             <strong>发起 Check</strong>
-            <p>搜索 Query、百科来源、疑虑段落</p>
+            <p>搜索 Query、百看来源、疑虑段落</p>
             <code>user.check.create</code>
           </article>
           <div class="trace-arrow"><i></i><span>→</span></div>
           <article class="trace-event assistant-event">
-            <header><span>02</span><b>AI 回复</b></header>
-            <strong>理解并承接</strong>
-            <p>复述关注点、说明流程与提问价值</p>
-            <code>assistant.reply</code>
+            <header><span>02</span><b>系统事件</b></header>
+            <strong>提交真人待办</strong>
+            <p>不再生成补充问题，原始上下文进入真人医生待办</p>
+            <code>system.check.dispatch</code>
           </article>
           <div class="trace-arrow"><i></i><span>→</span></div>
           <article class="trace-event question-event">
-            <header><span>03</span><b>AI 追问</b></header>
-            <strong>测量条件</strong>
-            <p>“这次 6.3 mmol/L 是在什么情况下测的？”</p>
-            <code>question.measurement_context</code>
+            <header><span>03</span><b>AI 生成</b></header>
+            <strong>文心 lite · 候选 A</strong>
+            <p>基于搜索 Query 与圈定内容生成简明核验回复</p>
+            <code>wenxin_lite.reply_a</code>
           </article>
           <div class="trace-arrow"><i></i><span>→</span></div>
           <article class="trace-event user-event">
-            <header><span>04</span><b>用户输入</b></header>
-            <strong>回答测量条件</strong>
-            <p>“晨起空腹 10 小时测的。”</p>
-            <code>answer.measurement_context</code>
+            <header><span>04</span><b>AI 生成</b></header>
+            <strong>文心 lite · 候选 B</strong>
+            <p>生成安抚解释版本，保留边界与复查建议</p>
+            <code>wenxin_lite.reply_b</code>
           </article>
           <div class="trace-arrow"><i></i><span>→</span></div>
           <article class="trace-event question-event">
-            <header><span>05</span><b>AI 追问</b></header>
-            <strong>既往血糖情况</strong>
-            <p>“以前是否出现过血糖偏高？”</p>
-            <code>question.glucose_history</code>
+            <header><span>05</span><b>AI 生成</b></header>
+            <strong>gpt-5.6sol · 候选 C</strong>
+            <p>生成结构化风险沟通版本，供医生横向比较</p>
+            <code>gpt_5_6sol.reply_c</code>
           </article>
           <div class="trace-arrow"><i></i><span>→</span></div>
           <article class="trace-event user-event">
-            <header><span>06</span><b>用户输入</b></header>
-            <strong>回答既往情况</strong>
-            <p>“第一次发现偏高。”</p>
-            <code>answer.glucose_history</code>
+            <header><span>06</span><b>医生语音输入</b></header>
+            <strong>语音修订指令</strong>
+            <p>“语气更安抚，不提具体阈值，保留复查建议。”</p>
+            <code>doctor.voice_feedback</code>
           </article>
           <div class="trace-arrow"><i></i><span>→</span></div>
           <article class="trace-event question-event">
-            <header><span>07</span><b>AI 追问</b></header>
-            <strong>高风险因素</strong>
-            <p>“你是否有糖尿病家族史等高风险因素？”</p>
-            <code>question.risk_factors</code>
+            <header><span>07</span><b>AI 生成</b></header>
+            <strong>修订后候选</strong>
+            <p>保留原候选上下文，按医生语音要求重新生成</p>
+            <code>copilot.regenerate_from_voice</code>
           </article>
           <div class="trace-arrow"><i></i><span>→</span></div>
           <article class="trace-event user-event">
-            <header><span>08</span><b>用户输入</b></header>
-            <strong>回答风险因素</strong>
-            <p>“母亲有糖尿病。”</p>
-            <code>answer.risk_factors</code>
+            <header><span>08</span><b>医生动作</b></header>
+            <strong>选择并编辑</strong>
+            <p>选择候选、确认修改差异与最终回答</p>
+            <code>doctor.select_and_edit</code>
           </article>
           <div class="trace-arrow"><i></i><span>→</span></div>
           <article class="trace-event copilot-event">
-            <header><span>09</span><b>Copilot 生成</b></header>
-            <strong>候选回答 A / B</strong>
-            <p>完整上下文、模型版本与生成参数</p>
-            <code>copilot.candidates</code>
+            <header><span>09</span><b>医生动作</b></header>
+            <strong>最终发送</strong>
+            <p>以真人医生身份向患者发送核验回答</p>
+            <code>doctor.finalize</code>
           </article>
           <div class="trace-arrow"><i></i><span>→</span></div>
           <article class="trace-event doctor-event">
-            <header><span>10</span><b>医生动作</b></header>
-            <strong>直发 / 编辑后发</strong>
-            <p>选择结果、修改差异与最终回答</p>
-            <code>doctor.finalize</code>
+            <header><span>10</span><b>系统事件</b></header>
+            <strong>回答送达</strong>
+            <p>回传患者咨询室，并生成后续问诊入口</p>
+            <code>system.check.delivered</code>
           </article>
         </div>
       </section>
@@ -356,10 +290,10 @@
         <header class="extension-header">
           <div>
             <span class="eyebrow">PAID CONSULTATION · AFTER STEP 04</span>
-            <h2 id="consultationTitle">从核验升级为一次完整真人问诊。</h2>
-            <p>圈定一部分合作医生全程参与 AI 回答的标注反馈；用户支付诊费后，直接等待真人接入，医生接诊时开启限时真人 IM，结束后回到咨询室沉淀问诊小结。</p>
+            <h2 id="consultationTitle">真人医生全流程标注 AI 生成内容。</h2>
+            <p>用户支付后直接等待真人医生接入；从第一轮沟通开始，AI 为每次回复提供多模型候选，真人医生选择、语音修订或编辑后发送，沉淀完整标注回合。</p>
           </div>
-          <div class="extension-path"><span>支付成功</span><b>→</b><span>等待真人接入</span><b>→</b><span>合作医生参与标注</span><b>→</b><span>限时 IM</span><b>→</b><span>小结指导</span></div>
+          <div class="extension-path"><span>支付成功</span><b>→</b><span>等待真人接入</span><b>→</b><span>真人标注 AI 生成</span><b>→</b><span>限时 IM</span><b>→</b><span>小结指导</span></div>
         </header>
 
         <div class="extension-viewport" id="extensionViewport">
@@ -368,7 +302,7 @@
               <header class="lane-header compact-lane-header">
                 <div class="lane-role patient-role"><span>患者</span></div>
                 <div><span class="eyebrow">PATIENT CONSULTATION ROOM</span><h2>患者端 · 付费问诊延展</h2><p>咨询室始终是主容器，真人 IM 只在医生接诊后临时打开。</p></div>
-                <div class="lane-count">5 个移动界面</div>
+                <div class="lane-count">3 个移动界面</div>
               </header>
 
               <div class="extension-grid patient-extension-grid">
@@ -380,7 +314,7 @@
                       <header class="room-head group-room-head"><span>‹</span><div class="group-avatars"><div class="doctor-avatar">林</div><div class="assistant-avatar">✣</div></div><div><strong>林医生咨询室（3）</strong><small><i></i> 等待林医生接诊</small></div><em>•••</em></header>
                       <div class="payment-success-tip"><span>✓</span><div><strong>支付成功 ¥39</strong><small>图文问诊已创建 · 24 小时有效</small></div></div>
                       <div class="chat-body">
-                        <div class="ai-row"><div class="mini-ai">✣</div><span><strong>医生智能助手 <em>AI</em></strong><p>问诊已经创建，我正在通知林医生接诊。等待这段时间，我先帮你把最想解决的问题整理好，医生进来就能直接聊重点。</p></span></div>
+                        <div class="ai-row"><div class="mini-ai">✓</div><span><strong>已通知林医生</strong><p>图文问诊已创建，正在等待真人医生接入。接诊后，医生会在每轮沟通中确认 AI 生成的回复。</p></span></div>
                         <div class="accept-wait-card">
                           <div class="wait-doctor"><div class="doctor-avatar">林</div><i></i></div>
                           <div><strong>等待林医生接诊</strong><p>已通知医生 · 通常 5 分钟内响应</p></div>
@@ -388,60 +322,19 @@
                           <footer><i class="done"></i><b>订单已创建</b><em></em><i class="active"></i><b>等待接诊</b><em></em><i></i><b>开始问诊</b></footer>
                         </div>
                         <div class="wait-note">可退出当前页面，医生接诊后会通过消息提醒</div>
-                      </div>
-                      <form class="chat-composer" data-reply="收到，我会把这条信息放进预问诊摘要，林医生接诊后可以直接看到。"><button type="button">＋</button><input placeholder="等待时也可以继续补充…" /><button class="send-chat" type="submit">↑</button></form>
-                    </div>
-                    <div class="home-indicator"></div>
-                  </div>
-                </article>
-
-                <div class="connector patient-connector"><span>等待期间</span><i></i><b>→</b><small>不追加 AI 追问，等待真人接入</small></div>
-
-                <article class="phone-step" id="step-p6">
-                  <div class="step-caption"><span>06</span><div><strong>等待合作医生接入</strong><small>AI 不再追问，保留支付与核验上下文</small></div></div>
-                  <div class="phone-shell patient-phone">
-                    <div class="phone-top"><span>15:08</span><i></i><span>▮▮ 78%</span></div>
-                    <div class="phone-screen room-screen">
-                      <header class="room-head group-room-head"><span>‹</span><div class="group-avatars"><div class="doctor-avatar">林</div><div class="assistant-avatar">✣</div></div><div><strong>林医生咨询室（3）</strong><small><i></i> 智能助手预问诊中</small></div><em>•••</em></header>
-                      <div class="preconsult-banner"><span>✣</span><div><strong>接诊前预问诊</strong><small>你的回答会整理给林医生</small></div><b>2 / 3</b></div>
-                      <div class="chat-body preconsult-chat">
-                        <div class="ai-row"><div class="mini-ai">✣</div><span><strong>医生智能助手 <em>AI</em></strong><p>这次问诊，你最想让林医生帮你解决什么？</p></span></div>
-                        <div class="patient-chat-bubble">主要想知道饮食怎么调，还需不需要吃药。</div>
-                        <div class="ai-row"><div class="mini-ai">✣</div><span><strong>医生智能助手 <em>AI</em></strong><p>明白。最近有明显口渴、多尿或体重下降吗？</p></span></div>
-                        <div class="patient-chat-bubble">都没有。</div>
-                        <div class="ai-row"><div class="mini-ai">✣</div><span><strong>医生智能助手 <em>AI</em></strong><p>好的。现在有在用降糖药或其他长期药物吗？</p></span></div>
-                        <div class="patient-chat-bubble">没有用药。</div>
-                        <div class="preconsult-summary"><span>已整理给医生</span><dl><div><dt>核心诉求</dt><dd>饮食调整、是否用药</dd></div><div><dt>相关症状</dt><dd>无口渴、多尿、体重下降</dd></div><div><dt>当前用药</dt><dd>无</dd></div></dl></div>
-                      </div>
-                      <form class="chat-composer" data-reply="好的，这条也已补充到预问诊摘要里。"><button type="button">＋</button><input placeholder="继续回答或补充…" /><button class="send-chat" type="submit">↑</button></form>
-                    </div>
-                    <div class="home-indicator"></div>
-                  </div>
-                </article>
-
-                <div class="connector patient-connector"><span>医生接诊</span><i></i><b>→</b><small>咨询室推送接入卡</small></div>
-
-                <article class="phone-step" id="step-p7">
-                  <div class="step-caption"><span>07</span><div><strong>医生接入卡</strong><small>点击开启真人 IM 会话层</small></div></div>
-                  <div class="phone-shell patient-phone">
-                    <div class="phone-top"><span>15:12</span><i></i><span>▮▮ 76%</span></div>
-                    <div class="phone-screen room-screen doctor-entry-screen">
-                      <header class="room-head group-room-head"><span>‹</span><div class="group-avatars"><div class="doctor-avatar">林</div><div class="assistant-avatar">✣</div></div><div><strong>林医生咨询室（3）</strong><small><i></i> 林医生已接诊</small></div><em>•••</em></header>
-                      <div class="chat-body">
-                        <div class="system-time">15:12</div>
-                        <div class="doctor-joined-card">
+                        <div class="joined-transition-label">医生接诊后 · 同一咨询室内推送</div>
+                        <div class="doctor-joined-card compact-joined-card">
                           <div class="doctor-avatar">林</div>
-                          <div><span>林夏医生已接诊</span><strong>现在可以和医生本人沟通</strong><p>智能助手的预问诊记录将同步给医生</p></div>
+                          <div><span>林夏医生已接诊</span><strong>现在可以和医生本人沟通</strong><p>本次核验上下文已同步给医生</p></div>
                           <button id="openDoctorImBtn" type="button">进入真人对话 <b>→</b></button>
                         </div>
-                        <div class="ai-row"><div class="mini-ai">✣</div><span><strong>医生智能助手 <em>AI</em></strong><p>林医生已经进来了。点击上面的卡片，就能进入本次限时真人对话；之前的内容我都帮你同步好了。</p></span></div>
                       </div>
-                      <form class="chat-composer" data-reply="林医生已接诊，请点击上方卡片进入真人对话。"><button type="button">＋</button><input placeholder="咨询室消息…" /><button class="send-chat" type="submit">↑</button></form>
+                      <form class="chat-composer"><button type="button" disabled>＋</button><input disabled placeholder="等待医生接诊后即可开始沟通…" /><button class="send-chat" type="button" disabled>↑</button></form>
                       <div class="doctor-im-backdrop" id="doctorImBackdrop"></div>
                       <section class="doctor-im-sheet" id="doctorImSheet" aria-label="与林医生真人对话">
                         <header><button id="closeDoctorImBtn" type="button">⌄</button><div class="doctor-avatar">林</div><div><strong>林夏医生</strong><small>真人在线 · 剩余 29:48</small></div><span>•••</span></header>
-                        <div class="history-imported">✓ 已同步智能助手预问诊记录 6 条</div>
-                        <div class="sheet-welcome"><strong>林夏医生</strong><p>你好，你前面补充的信息我都看到了。我们从饮食和是否需要用药开始聊。</p></div>
+                        <div class="history-imported">✓ 已同步本次核验记录</div>
+                        <div class="sheet-welcome"><strong>林夏医生</strong><p>你好，我已看完你提交的核验内容。我们从你现在最想解决的问题开始聊。</p></div>
                         <form><button type="button">＋</button><input placeholder="回复林医生…" /><button type="button">↑</button></form>
                       </section>
                     </div>
@@ -459,7 +352,7 @@
                       <div class="im-underlay"><span>林医生咨询室</span><p>真人会话进行中</p></div>
                       <section class="doctor-im-sheet open persistent-sheet">
                         <header><button type="button">⌄</button><div class="doctor-avatar">林</div><div><strong>林夏医生</strong><small><i></i> 真人在线</small></div><span class="time-limit">剩余 23:41</span></header>
-                        <div class="history-imported">✓ 已同步核验记录与预问诊对话</div>
+                        <div class="history-imported">✓ 已同步本次核验记录</div>
                         <div class="im-messages">
                           <div class="doctor-im-message"><b>林医生</b><p>先不用吃药。你目前的身高和体重大概是多少？平时主食吃得多吗？</p></div>
                           <div class="patient-im-message">身高 162，体重 68 公斤，晚饭主食比较多。</div>
@@ -503,7 +396,7 @@
             </section>
 
             <section class="extension-handoff-zone" aria-label="付费问诊跨端交互">
-              <div class="extension-handoff payment-handoff" id="consult-payment-handoff"><span>↓</span><div><i>跨端交互 C</i><strong>支付成功，创建问诊订单</strong><small>核验上下文 + 预问诊记录自动进入医生端</small></div><span>↓</span></div>
+              <div class="extension-handoff payment-handoff" id="consult-payment-handoff"><span>↓</span><div><i>跨端交互 C</i><strong>支付成功，创建问诊订单</strong><small>本次核验上下文自动进入医生端</small></div><span>↓</span></div>
               <div class="extension-handoff join-handoff" id="consult-join-handoff"><span>↑</span><div><i>跨端交互 D</i><strong>医生接诊，开启真人 IM</strong><small>接诊状态、时长与历史消息同步到患者端</small></div><span>↑</span></div>
             </section>
 
@@ -523,9 +416,9 @@
                       <div class="order-overview"><div><span>待处理</span><strong>8</strong></div><div><span>图文问诊</span><strong>4</strong></div><div><span>已支付</span><strong>3</strong></div></div>
                       <div class="order-tabs"><button type="button">全部 <i>8</i></button><button type="button">核验 <i>3</i></button><button class="active" type="button">问诊 <i>4</i></button><button type="button">加号 <i>1</i></button></div>
                       <div class="consultation-order-list">
-                        <article class="mobile-order active-order"><header><span class="order-type consult-type">图文问诊 · 已支付</span><time>刚刚</time></header><strong>空腹血糖 6.3 是否需要用药？</strong><p>王女士 · 46 岁 · 已完成预问诊 3 项</p><footer><span>¥39</span><b>待接诊 ›</b></footer></article>
+                      <article class="mobile-order active-order"><header><span class="order-type consult-type">图文问诊 · 已支付</span><time>刚刚</time></header><strong>空腹血糖 6.3 是否需要用药？</strong><p>王女士 · 46 岁 · 真人医生标注服务</p><footer><span>¥39</span><b>待接诊 ›</b></footer></article>
                         <article class="mobile-order"><header><span class="order-type consult-type">图文问诊</span><time>5 分钟前</time></header><strong>甲状腺结节复查报告怎么看？</strong><p>含 2 张检查报告 · 患者在线</p><footer><span>¥39</span><b>待回复 ›</b></footer></article>
-                        <article class="mobile-order"><header><span class="order-type check-type">内容核验</span><time>12 分钟前</time></header><strong>维生素 D 低需要补多久？</strong><p>已补充 2 项信息</p><footer><span>免费</span><b>待处理 ›</b></footer></article>
+                        <article class="mobile-order"><header><span class="order-type check-type">内容核验</span><time>12 分钟前</time></header><strong>维生素 D 低需要补多久？</strong><p>搜索 Query 与圈定内容已带入</p><footer><span>免费</span><b>待处理 ›</b></footer></article>
                       </div>
                       <button class="accept-consult-button flow-trigger" data-target="step-d5" type="button">处理首条付费问诊 <span>→</span></button>
                     </div>
@@ -541,12 +434,11 @@
                     <div class="phone-top dark-top"><span>15:10</span><i></i><span>▮▮ 69%</span></div>
                     <div class="phone-screen doctor-mobile consult-order-screen">
                       <header class="doctor-nav"><span>‹</span><div><strong>图文问诊订单</strong><small>#C20260711-0286 · 已支付</small></div><em>•••</em></header>
-                      <div class="paid-order-strip"><span>¥39 已支付</span><b>等待接诊 03:12</b></div>
+                      <div class="paid-order-strip"><span>¥39 已支付</span><b>真人标注模式 · 待医生接诊</b></div>
                       <div class="consult-order-scroll">
                         <section class="consult-patient-head"><div class="patient-round">王</div><div><strong>王女士 · 46 岁</strong><p>核验服务升级 · 无急症风险</p></div><span>普通</span></section>
                         <section class="doctor-context-card"><label>本次主要诉求</label><h3>饮食怎么调整，空腹血糖 6.3 是否需要用药？</h3></section>
                         <section class="doctor-context-card"><label>前序核验结论</label><p>单次 6.3 不能诊断糖尿病，建议复查空腹血糖和 HbA1c。</p></section>
-                        <section class="doctor-context-card pre-brief"><div><label>智能助手预问诊</label><span>已完成 3 项</span></div><dl><div><dt>症状</dt><dd>无口渴、多尿、体重下降</dd></div><div><dt>用药</dt><dd>无</dd></div><div><dt>关注点</dt><dd>饮食、是否用药</dd></div></dl></section>
                       </div>
                       <button class="accept-consult-button" id="acceptConsultBtn" type="button">接诊并开始对话 <span>→</span></button>
                     </div>
@@ -562,9 +454,9 @@
                     <div class="phone-top dark-top"><span>15:18</span><i></i><span>▮▮ 66%</span></div>
                     <div class="phone-screen doctor-mobile doctor-live-im">
                       <header class="doctor-nav live-doctor-nav"><span>‹</span><div><strong>王女士 · 图文问诊</strong><small><i></i> 患者在线</small></div><em class="doctor-timer">23:41</em></header>
-                      <div class="doctor-ai-brief"><div class="copilot-icon">✣</div><div><strong>预问诊摘要</strong><p>诉求：饮食与用药 · 无典型症状 · 无当前用药</p></div><button type="button">展开</button></div>
+                      <div class="doctor-ai-brief"><div class="copilot-icon">✣</div><div><strong>真人医生标注上下文</strong><p>核验结论 · 当前对话 · 本轮模型候选与医生偏好</p></div><button type="button">展开</button></div>
                         <div class="doctor-im-scroll">
-                        <div class="doctor-side-message">你好，你前面补充的信息我都看到了。先不用吃药，我们重点聊饮食和复查。</div>
+                        <div class="doctor-side-message">你好，我已看完这次核验记录。先不用吃药，我们重点聊饮食和复查。</div>
                         <div class="patient-side-message"><span>患者</span><p>我身高 162，体重 68 公斤，晚饭主食比较多。</p></div>
                         <div class="doctor-side-message">体重稍偏高。晚餐主食先减少约四分之一，多加蔬菜和蛋白质。</div>
                         <div class="patient-side-message"><span>患者</span><p>水果还能吃吗？</p></div>
@@ -572,8 +464,13 @@
                         </div>
                         <section class="doctor-copilot-reply">
                           <header><div class="copilot-icon">✣</div><div><strong>Copilot 多模型候选</strong><small>文心 lite ×2 / gpt-5.6sol ×1 · 结合本次问诊上下文</small></div><span>AI</span></header>
-                          <p>水果可以吃，建议放在两餐之间，每次约一个拳头大小；优先苹果、梨或莓果，先避免果汁和高糖水果。</p>
-                          <footer><button id="copilotInsertBtn" type="button">插入编辑</button><button class="voice-edit" type="button">语音编辑</button><button id="copilotSendBtn" type="button">直接发送</button></footer>
+                          <div class="live-model-candidates">
+                            <div class="live-model-card selected" data-live-reply="水果可以吃，建议放在两餐之间，每次约一个拳头大小；优先苹果、梨或莓果，先避免果汁和高糖水果。" role="button" tabindex="0"><span>文心 lite · A</span><p>水果可以吃，放在两餐之间，每次一个拳头大小。</p><small>✓ 已选</small><button class="voice-edit" data-voice-target="live" data-source="文心 lite · A" type="button">🎙 长按 / 点击语音改写</button></div>
+                            <div class="live-model-card" data-live-reply="可以吃水果，但尽量选完整水果而非果汁，先从苹果、梨等开始；如果吃后血糖波动明显，再和医生沟通调整。" role="button" tabindex="0"><span>文心 lite · B</span><p>完整水果优先，观察餐后波动。</p><small>可选</small><button class="voice-edit" data-voice-target="live" data-source="文心 lite · B" type="button">🎙 长按 / 点击语音改写</button></div>
+                            <div class="live-model-card" data-live-reply="可以适量吃水果，建议安排在两餐之间并控制总量。结合后续复查结果，再由医生一起评估饮食调整是否有效。" role="button" tabindex="0"><span>gpt-5.6sol · C</span><p>保留复查闭环与个体化建议。</p><small>可选</small><button class="voice-edit" data-voice-target="live" data-source="gpt-5.6sol · C" type="button">🎙 长按 / 点击语音改写</button></div>
+                          </div>
+                          <div class="voice-command-card compact-voice"><span>对任一候选长按 / 点击语音键</span><b>“加一句孩子也能听懂的原因，语气更温和。”</b></div>
+                          <footer><button id="copilotInsertBtn" type="button">插入编辑</button><button id="copilotSendBtn" type="button">直接发送</button></footer>
                         </section>
                         <div class="doctor-quick-tools"><button type="button">复查建议</button><button type="button">饮食模板</button><button type="button">发送图片</button></div>
                       <form class="doctor-im-composer"><button type="button">＋</button><input id="doctorLiveInput" placeholder="回复患者…" /><button type="button">↑</button></form>
@@ -591,28 +488,94 @@
       <section class="consultation-extension hosted-extension" aria-labelledby="hostedConsultTitle">
         <header class="extension-header">
           <div>
-            <span class="eyebrow">NON-PARTNER DOCTOR · AI HOSTED PRE-CONSULT</span>
-            <h2 id="hostedConsultTitle">非合作医生提供 AI 托管预问诊。</h2>
-            <p>当医生暂未真人接入时，AI 先自动完成预问诊、整理病史和问题清单；真人医生接入后，医生端继续使用同样改造后的 Copilot 完成真人问诊。</p>
+            <span class="eyebrow">AI PARTIAL CONSULTATION · HUMAN DOCTOR ANNOTATION</span>
+            <h2 id="hostedConsultTitle">AI 完成部分问诊，真人接诊后标注 AI 生成内容。</h2>
+            <p>真人医生接入前，AI 先通过多轮对话整理部分问诊信息；医生接入后接管会话，并沿用多模型候选、语音修订与最终发送的标注流程。</p>
           </div>
-          <div class="extension-path"><span>支付成功</span><b>→</b><span>AI 托管预问诊</span><b>→</b><span>真人接入</span><b>→</b><span>多模型 Copilot</span><b>→</b><span>医生回复</span></div>
+          <div class="extension-path"><span>支付成功</span><b>→</b><span>AI 托管预问诊</span><b>→</b><span>真人接入即停止</span><b>→</b><span>多模型 Copilot</span><b>→</b><span>医生回复</span></div>
         </header>
-        <div class="hosted-grid">
-          <article class="hosted-card">
-            <span>患者侧</span>
-            <h3>医生接入前，AI 自动预问诊</h3>
-            <p>围绕主诉、持续时间、症状、用药、既往史自动追问，用户感知为“已开始整理给医生”。</p>
-          </article>
-          <article class="hosted-card">
-            <span>医生侧</span>
-            <h3>接入后直接看到托管摘要</h3>
-            <p>非合作医生不参与前置标注，但接诊时能看到 AI 托管预问诊摘要，并使用同样的 2 个文心 lite + 1 个 gpt-5.6sol 候选回复。</p>
-          </article>
-          <article class="hosted-card">
-            <span>Copilot</span>
-            <h3>回复卡继续支持语音编辑</h3>
-            <p>医生可以直接语音告诉 AI 修改原回复的重点，再生成符合医生需要的最终回复。</p>
-          </article>
+        <div class="hosted-mobile-flow">
+          <section class="hosted-mobile-lane patient-hosted-lane">
+            <header><span>患者端</span><strong>医生暂未接入时，AI 托管问诊</strong></header>
+            <article class="phone-step" id="step-p10">
+              <div class="step-caption"><span>N1</span><div><strong>AI 托管预问诊</strong><small>仅非合作医生场景</small></div></div>
+              <div class="phone-shell patient-phone">
+                <div class="phone-top"><span>16:03</span><i></i><span>▮▮ 77%</span></div>
+                <div class="phone-screen room-screen hosted-room-screen">
+                  <header class="room-head group-room-head"><span>‹</span><div class="group-avatars"><div class="doctor-avatar">周</div><div class="assistant-avatar">✣</div></div><div><strong>周医生咨询室（2）</strong><small><i></i> 医生暂未接入 · AI 托管中</small></div><em>•••</em></header>
+                  <div class="hosted-status-strip"><span>AI 托管预问诊</span><b>医生接入后自动停止</b></div>
+                  <div class="chat-body">
+                    <div class="ai-row"><div class="mini-ai">✣</div><span><strong>医生智能助手 <em>AI</em></strong><p>为了让周医生接诊后更快了解你，我先帮你整理几个关键情况。</p></span></div>
+                    <div class="hosted-question"><label>第 2 题 / 共 4 题</label><strong>最近有没有口渴、多尿，或体重明显变化？</strong><div><button>没有明显变化</button><button>有一点担心</button></div></div>
+                    <div class="hosted-summary-mini"><b>已整理</b><span>主诉 · 症状 · 用药 · 既往史</span></div>
+                  </div>
+                  <form class="chat-composer"><button type="button">＋</button><input placeholder="输入你的情况…" /><button type="button" class="send-chat">↑</button></form>
+                </div><div class="home-indicator"></div>
+              </div>
+            </article>
+            <div class="hosted-flow-connector"><span>真人接入</span><b>→</b><small>AI 托管立即停止</small></div>
+            <article class="phone-step" id="step-p11">
+              <div class="step-caption"><span>N2</span><div><strong>真人接入</strong><small>进入限时真人 IM</small></div></div>
+              <div class="phone-shell patient-phone">
+                <div class="phone-top"><span>16:09</span><i></i><span>▮▮ 75%</span></div>
+                <div class="phone-screen room-screen hosted-room-screen">
+                  <header class="room-head group-room-head"><span>‹</span><div class="group-avatars"><div class="doctor-avatar">周</div><div class="assistant-avatar">✣</div></div><div><strong>周医生咨询室（3）</strong><small><i></i> 周医生已接诊</small></div><em>•••</em></header>
+                  <div class="chat-body">
+                    <div class="system-time">16:09</div>
+                    <div class="doctor-joined-card"><div class="doctor-avatar">周</div><div><span>周医生已接诊</span><strong>AI 托管已结束</strong><p>预问诊原对话与摘要均已同步给医生</p></div><button type="button">进入真人对话 <b>→</b></button></div>
+                    <div class="ai-row"><div class="mini-ai">✓</div><span><strong>医生智能助手 <em>AI</em></strong><p>接下来由周医生继续为你问诊，无需重复描述刚才的信息。</p></span></div>
+                  </div>
+                  <form class="chat-composer"><button type="button">＋</button><input placeholder="回复周医生…" /><button type="button" class="send-chat">↑</button></form>
+                </div><div class="home-indicator"></div>
+              </div>
+            </article>
+          </section>
+          <div class="hosted-cross-handoff"><span>患者端托管记录</span><b>↓</b><strong>医生端完整同步</strong><b>↓</b><span>多模型 Copilot</span></div>
+          <section class="hosted-mobile-lane doctor-hosted-lane">
+            <header><span>医生端</span><strong>接诊后使用同一套多模型 Copilot</strong></header>
+            <article class="phone-step" id="step-d7">
+              <div class="step-caption"><span>N3</span><div><strong>托管摘要 + Copilot</strong><small>医生选择或语音改写后发送</small></div></div>
+              <div class="phone-shell doctor-phone">
+                <div class="phone-top dark-top"><span>16:09</span><i></i><span>▮▮ 63%</span></div>
+                <div class="phone-screen doctor-mobile hosted-doctor-screen">
+                  <header class="doctor-nav"><span>‹</span><div><strong>李女士 · 图文问诊</strong><small>AI 托管记录已同步</small></div><em>•••</em></header>
+                  <div class="hosted-doctor-summary"><b>AI 托管摘要</b><p>主诉：担心血糖异常；无明显口渴、多尿；未规律用药</p><span>查看原始预问诊 4 轮 ›</span></div>
+                  <section class="doctor-copilot-reply hosted-copilot">
+                    <header><div class="copilot-icon">✣</div><div><strong>Copilot 多模型候选</strong><small>与真人标注流程一致</small></div><span>AI</span></header>
+                    <div class="live-model-candidates"><div class="live-model-card selected"><span>文心 lite · A</span><p>先说明不用过度紧张，再给复查建议。</p><small>✓ 已选</small><button type="button">🎙 长按 / 点击语音改写</button></div><div class="live-model-card"><span>文心 lite · B</span><p>用通俗语言解释检测条件影响。</p><small>可选</small><button type="button">🎙 长按 / 点击语音改写</button></div><div class="live-model-card"><span>gpt-5.6sol · C</span><p>补充风险边界和就医建议。</p><small>可选</small><button type="button">🎙 长按 / 点击语音改写</button></div></div>
+                    <footer><button type="button">插入编辑</button><button type="button">直接发送</button></footer>
+                  </section>
+                </div><div class="home-indicator dark-indicator"></div>
+              </div>
+            </article>
+          </section>
+        </div>
+        <div class="nonpartner-viewport">
+          <div class="nonpartner-canvas">
+            <section class="extension-lane extension-patient-lane nonpartner-patient-lane">
+              <header class="lane-header compact-lane-header"><div class="lane-role patient-role"><span>患者</span></div><div><span class="eyebrow">PATIENT CONSULTATION ROOM</span><h2>患者端 · AI 先完成部分问诊</h2><p>AI 在医生接入前完成必要的多轮问诊整理；真人接入后，继续进入真人 IM，并保留完整小结。</p></div><div class="lane-count">4 个移动界面</div></header>
+              <div class="extension-grid nonpartner-patient-grid">
+                <article class="phone-step"><div class="step-caption"><span>N1</span><div><strong>支付成功 · AI 托管预问诊</strong><small>复用 05 页，接入前进行多轮对话</small></div></div><div class="phone-shell patient-phone"><div class="phone-top"><span>16:03</span><i></i><span>▮▮ 77%</span></div><div class="phone-screen room-screen hosted-room-screen"><header class="room-head group-room-head"><span>‹</span><div class="group-avatars"><div class="doctor-avatar">周</div><div class="assistant-avatar">✣</div></div><div><strong>周医生咨询室（2）</strong><small><i></i> 医生暂未接入</small></div><em>•••</em></header><div class="payment-success-tip"><span>✓</span><div><strong>支付成功 ¥39</strong><small>图文问诊已创建</small></div></div><div class="chat-body hosted-dialogue"><div class="ai-row"><div class="mini-ai">✣</div><span><strong>医生智能助手 <em>AI</em></strong><p>周医生稍后会接入。趁现在方便的话，我先帮你把这次情况理清楚，医生看到后会更快进入重点。</p></span></div><div class="live-user-message">好的，我主要担心空腹血糖 6.3 会不会越来越严重。</div><div class="ai-row"><div class="mini-ai">✣</div><span><strong>医生智能助手 <em>AI</em></strong><p>能理解你会担心。除了这次结果，最近有没有明显口渴、夜里频繁起夜，或体重突然变化？</p></span></div><div class="live-user-message">没有这些情况，体重这半年大概没什么变化。</div><div class="ai-row"><div class="mini-ai">✣</div><span><strong>医生智能助手 <em>AI</em></strong><p>收到，我记下了。最后再确认一下：你平时有在用降糖药，或者家里有人血糖偏高吗？</p></span></div></div><form class="chat-composer"><button type="button">＋</button><input placeholder="输入你的情况…" /><button type="button" class="send-chat">↑</button></form></div><div class="home-indicator"></div></div></article>
+                <div class="connector patient-connector"><span>医生接诊</span><i></i><b>→</b><small>AI 托管立即停止</small></div>
+                <article class="phone-step"><div class="step-caption"><span>N2</span><div><strong>真人接入状态卡</strong><small>复用接入卡，原对话完整同步</small></div></div><div class="phone-shell patient-phone"><div class="phone-top"><span>16:09</span><i></i><span>▮▮ 75%</span></div><div class="phone-screen room-screen doctor-entry-screen"><header class="room-head group-room-head"><span>‹</span><div class="group-avatars"><div class="doctor-avatar">周</div><div class="assistant-avatar">✣</div></div><div><strong>周医生咨询室（3）</strong><small><i></i> 周医生已接诊</small></div><em>•••</em></header><div class="chat-body"><div class="system-time">16:09</div><div class="doctor-joined-card"><div class="doctor-avatar">周</div><div><span>周医生已接诊</span><strong>现在可以和医生本人沟通</strong><p>之前聊到的情况已同步给周医生</p></div><button type="button">进入真人对话 <b>→</b></button></div><div class="ai-row"><div class="mini-ai">✓</div><span><strong>医生智能助手 <em>AI</em></strong><p>周医生已经进来了。你刚才说的担心和身体情况都在这次会话里，可以直接从最想问的地方继续聊。</p></span></div></div><form class="chat-composer"><button type="button">＋</button><input placeholder="回复周医生…" /><button type="button" class="send-chat">↑</button></form></div><div class="home-indicator"></div></div></article>
+                <div class="connector patient-connector"><span>打开 IM</span><i></i><b>→</b><small>复用 08 页</small></div>
+                <article class="phone-step"><div class="step-caption"><span>N3</span><div><strong>限时真人多轮对话</strong><small>复用 08 页</small></div></div><div class="phone-shell patient-phone"><div class="phone-top"><span>16:15</span><i></i><span>▮▮ 73%</span></div><div class="phone-screen im-demo-screen"><div class="im-underlay"><span>周医生咨询室</span><p>真人会话进行中</p></div><section class="doctor-im-sheet open persistent-sheet"><header><button type="button">⌄</button><div class="doctor-avatar">周</div><div><strong>周医生</strong><small><i></i> 真人在线</small></div><span class="time-limit">剩余 23:41</span></header><div class="history-imported">✓ 已同步 AI 预问诊原记录与摘要</div><div class="im-messages"><div class="doctor-im-message"><b>周医生</b><p>你好，我已经看完之前整理的情况。你现在最担心的是哪一点？</p></div><div class="patient-im-message">担心以后会不会发展严重。</div><div class="doctor-im-message"><b>周医生</b><p>我们先结合复查结果再判断，今天先把饮食和复查安排说清楚。</p></div></div><div class="duration-notice">本次真人对话剩余 23 分钟</div><form class="im-composer"><button type="button">＋</button><input placeholder="回复周医生…" /><button type="button">↑</button></form></section></div><div class="home-indicator"></div></div></article>
+                <div class="connector patient-connector"><span>会话结束</span><i></i><b>→</b><small>复用 09 页</small></div>
+                <article class="phone-step"><div class="step-caption"><span>N4</span><div><strong>问诊小结与指导</strong><small>复用 09 页</small></div></div><div class="phone-shell patient-phone"><div class="phone-top"><span>16:42</span><i></i><span>▮▮ 68%</span></div><div class="phone-screen room-screen summary-screen"><header class="room-head group-room-head"><span>‹</span><div class="group-avatars"><div class="doctor-avatar">周</div><div class="assistant-avatar">✣</div></div><div><strong>周医生咨询室（3）</strong><small>真人问诊已结束</small></div><em>•••</em></header><div class="session-ended-tip">✓ 与周医生的真人会话已结束 · 共 27 分钟</div><div class="chat-body"><div class="ai-row"><div class="mini-ai">✣</div><span><strong>医生智能助手 <em>AI</em></strong><p>我已整理周医生刚才的判断和接下来的复查建议。</p></span></div><article class="consult-summary-card"><header><span>真人问诊小结</span><small>基于医生问诊生成</small></header><section><label>医生判断</label><p>先规律饮食、按时复查，暂不自行用药。</p></section><section class="guidance-section"><label>接下来这样做</label><ol><li><b>1</b><span>晚餐主食适量减少</span></li><li><b>2</b><span>两周内复查空腹血糖</span></li></ol></section></article></div><form class="chat-composer"><button type="button">＋</button><input placeholder="针对小结继续问…" /><button type="button" class="send-chat">↑</button></form></div><div class="home-indicator"></div></div></article>
+              </div>
+            </section>
+            <section class="extension-handoff-zone nonpartner-handoff"><div class="extension-handoff payment-handoff"><span>↓</span><div><i>跨端交互</i><strong>AI 托管记录与摘要同步</strong><small>真人接诊后完整带入医生端</small></div><span>↓</span></div></section>
+            <section class="extension-lane extension-doctor-lane nonpartner-doctor-lane">
+              <header class="lane-header compact-lane-header"><div class="lane-role doctor-role"><span>医生</span></div><div><span class="eyebrow">DOCTOR CONSULTATION APP</span><h2>医生端 · 接诊后标注 AI 生成内容</h2><p>医生查看 AI 整理的前序对话后接诊；真人会话中继续选择、语音修订或编辑 AI 生成内容，再以医生身份发送。</p></div><div class="lane-count">3 个移动界面</div></header>
+              <div class="extension-grid nonpartner-doctor-grid">
+                <article class="phone-step"><div class="step-caption"><span>D4</span><div><strong>多类型订单中心</strong><small>复用合作医生端 D4</small></div></div><div class="phone-shell doctor-phone"><div class="phone-top dark-top"><span>16:09</span><i></i><span>▮▮ 70%</span></div><div class="phone-screen doctor-mobile consultation-order-hub"><header class="doctor-home-head"><div><span>下午好</span><strong>周医生</strong></div><div class="doctor-avatar">周</div></header><div class="order-overview"><div><span>待处理</span><strong>8</strong></div><div><span>图文问诊</span><strong>4</strong></div><div><span>已支付</span><strong>3</strong></div></div><div class="order-tabs"><button>全部 <i>8</i></button><button>核验 <i>3</i></button><button class="active">问诊 <i>4</i></button><button>加号 <i>1</i></button></div><div class="consultation-order-list"><article class="mobile-order active-order"><header><span class="order-type consult-type">图文问诊 · 已支付</span><time>刚刚</time></header><strong>空腹血糖 6.3 是否需要用药？</strong><p>李女士 · 42 岁 · 预问诊记录已带入</p><footer><span>¥39</span><b>待接诊 ›</b></footer></article><article class="mobile-order"><header><span class="order-type consult-type">图文问诊</span><time>5 分钟前</time></header><strong>甲状腺结节复查报告怎么看？</strong><p>含 2 张检查报告 · 患者在线</p><footer><span>¥39</span><b>待回复 ›</b></footer></article><article class="mobile-order"><header><span class="order-type check-type">内容核验</span><time>12 分钟前</time></header><strong>维生素 D 低需要补多久？</strong><p>搜索 Query 与圈定内容已带入</p><footer><span>免费</span><b>待处理 ›</b></footer></article></div><button class="accept-consult-button" type="button">处理首条付费问诊 <span>→</span></button></div><div class="home-indicator dark-indicator"></div></div></article>
+                <div class="ext-doctor-connector first-doctor-connector"><span>进入订单</span><i></i><b>→</b><small>复用 D5</small></div>
+                <article class="phone-step"><div class="step-caption"><span>D5</span><div><strong>付费问诊待接诊</strong><small>复用合作医生端 D5</small></div></div><div class="phone-shell doctor-phone"><div class="phone-top dark-top"><span>16:10</span><i></i><span>▮▮ 69%</span></div><div class="phone-screen doctor-mobile consult-order-screen"><header class="doctor-nav"><span>‹</span><div><strong>图文问诊订单</strong><small>#C20260711-0312 · 已支付</small></div><em>•••</em></header><div class="paid-order-strip"><span>¥39 已支付</span><b>待医生接诊</b></div><div class="consult-order-scroll"><section class="consult-patient-head"><div class="patient-round">李</div><div><strong>李女士 · 42 岁</strong><p>AI 预问诊已完成</p></div><span>普通</span></section><section class="doctor-context-card"><label>本次主要诉求</label><h3>空腹血糖偏高，担心是否需要用药</h3></section><section class="doctor-context-card"><label>AI 托管摘要</label><p>无明显口渴、多尿；无规律用药；已同步 4 轮原始预问诊。</p></section></div><button class="accept-consult-button" type="button">接诊并开始对话 <span>→</span></button></div><div class="home-indicator dark-indicator"></div></div></article>
+                <div class="ext-doctor-connector second-doctor-connector"><span>医生接诊</span><i></i><b>→</b><small>复用 D6</small></div>
+                <article class="phone-step"><div class="step-caption"><span>D6</span><div><strong>医生真人 IM + Copilot</strong><small>复用合作医生端 D6</small></div></div><div class="phone-shell doctor-phone"><div class="phone-top dark-top"><span>16:18</span><i></i><span>▮▮ 66%</span></div><div class="phone-screen doctor-mobile doctor-live-im"><header class="doctor-nav live-doctor-nav"><span>‹</span><div><strong>李女士 · 图文问诊</strong><small><i></i> 患者在线</small></div><em class="doctor-timer">23:41</em></header><div class="doctor-ai-brief"><div class="copilot-icon">✣</div><div><strong>AI 托管上下文</strong><p>原对话 · 摘要 · 当前真人会话</p></div><button>展开</button></div><div class="doctor-im-scroll"><div class="doctor-side-message">你好，我看过前面整理的情况了。你最担心的是血糖会不会继续升高，对吗？</div><div class="patient-side-message"><span>患者</span><p>对，我怕以后需要吃药，也不知道晚饭该怎么吃。</p></div><div class="doctor-side-message">先别急着把一次结果等同于疾病。我们先把作息和饮食调整好，再按时复查，结果会更有参考意义。</div><div class="patient-side-message"><span>患者</span><p>那水果还能不能吃？</p></div></div><section class="doctor-copilot-reply"><header><div class="copilot-icon">✣</div><div><strong>Copilot 多模型候选</strong><small>复用 D6：文心 lite ×2 / gpt-5.6sol ×1</small></div><span>AI</span></header><div class="live-model-candidates"><div class="live-model-card selected"><span>文心 lite · A</span><p>先安抚，再给复查建议。</p><small>✓ 已选</small><button>🎙 长按 / 点击语音改写</button></div><div class="live-model-card"><span>文心 lite · B</span><p>用通俗语言解释。</p><small>可选</small><button>🎙 长按 / 点击语音改写</button></div><div class="live-model-card"><span>gpt-5.6sol · C</span><p>补充风险边界。</p><small>可选</small><button>🎙 长按 / 点击语音改写</button></div></div><footer><button>插入编辑</button><button>直接发送</button></footer></section><form class="doctor-im-composer"><button>＋</button><input placeholder="回复患者…" /><button>↑</button></form></div><div class="home-indicator dark-indicator"></div></div></article>
+              </div>
+            </section>
+          </div>
         </div>
       </section>
 
@@ -620,25 +583,25 @@
         <header class="trace-header">
           <div>
             <span class="eyebrow">PAID CONSULTATION MODEL TRAINING TRACE</span>
-            <h2 id="paidTraceTitle">把“用户输入 → AI 生成 → 医生动作”保留为训练回合。</h2>
-            <p>预问诊训练智能助手如何追问；真人问诊训练 Copilot 如何生成，并以医生的直发或编辑后发作为最终监督信号。</p>
+            <h2 id="paidTraceTitle">把“多模型生成 → 医生标注反馈 → 最终发送”保留为训练回合。</h2>
+            <p>真人医生在会话中参与候选选择、语音修订和直接发送；AI 前置问诊完成后，也会进入同一套 Copilot 标注回合。</p>
           </div>
           <div class="trace-id"><span>TRACE ID</span><strong>consult_20260711_0286</strong><small>关联核验 Trace · 已脱敏</small></div>
         </header>
         <div class="paid-trace-flow" aria-label="付费问诊训练数据事件链">
-          <article class="trace-event question-event"><header><span>01</span><b>AI 生成</b></header><strong>预问诊第 1 题</strong><p>“这次问诊，你最想让林医生帮你解决什么？”</p><code>assistant.preconsult_question_1</code></article>
+          <article class="trace-event user-event"><header><span>01</span><b>用户输入</b></header><strong>支付后发起问诊</strong><p>付费订单、核验结论与本次主要诉求</p><code>user.consultation.create</code></article>
           <div class="trace-arrow"><i></i><span>→</span></div>
-          <article class="trace-event user-event"><header><span>02</span><b>用户输入</b></header><strong>回答第 1 题</strong><p>“想知道饮食怎么调，还需不需要吃药。”</p><code>user.preconsult_answer_1</code></article>
+          <article class="trace-event copilot-event"><header><span>02</span><b>AI 生成</b></header><strong>文心 lite · 候选 A</strong><p>基于问诊上下文生成首条候选回复</p><code>wenxin_lite.consult_reply_a</code></article>
           <div class="trace-arrow"><i></i><span>→</span></div>
-          <article class="trace-event question-event"><header><span>03</span><b>AI 生成</b></header><strong>预问诊第 2 题</strong><p>“最近有明显口渴、多尿或体重下降吗？”</p><code>assistant.preconsult_question_2</code></article>
+          <article class="trace-event copilot-event"><header><span>03</span><b>AI 生成</b></header><strong>文心 lite · 候选 B</strong><p>生成语气更安抚的平行版本</p><code>wenxin_lite.consult_reply_b</code></article>
           <div class="trace-arrow"><i></i><span>→</span></div>
-          <article class="trace-event user-event"><header><span>04</span><b>用户输入</b></header><strong>回答第 2 题</strong><p>“都没有。”</p><code>user.preconsult_answer_2</code></article>
+          <article class="trace-event copilot-event"><header><span>04</span><b>AI 生成</b></header><strong>gpt-5.6sol · 候选 C</strong><p>生成结构化风险沟通版本</p><code>gpt_5_6sol.consult_reply_c</code></article>
           <div class="trace-arrow"><i></i><span>→</span></div>
-          <article class="trace-event question-event"><header><span>05</span><b>AI 生成</b></header><strong>预问诊第 3 题</strong><p>“现在有在用降糖药或其他长期药物吗？”</p><code>assistant.preconsult_question_3</code></article>
+          <article class="trace-event doctor-event"><header><span>05</span><b>医生语音输入</b></header><strong>修订指令</strong><p>“更简短、更安抚，保留复查建议。”</p><code>doctor.voice_feedback_1</code></article>
           <div class="trace-arrow"><i></i><span>→</span></div>
-          <article class="trace-event user-event"><header><span>06</span><b>用户输入</b></header><strong>回答第 3 题</strong><p>“没有用药。”</p><code>user.preconsult_answer_3</code></article>
+          <article class="trace-event copilot-event"><header><span>06</span><b>AI 生成</b></header><strong>按语音修订再生成</strong><p>保留原候选版本与语音指令，生成医生需要的回复</p><code>copilot.regenerate_from_voice</code></article>
           <div class="trace-arrow"><i></i><span>→</span></div>
-          <article class="trace-event copilot-event"><header><span>07</span><b>Copilot 生成</b></header><strong>首条接诊建议</strong><p>基于核验与三轮预问诊生成候选回复</p><code>copilot.reply_candidate_1</code></article>
+          <article class="trace-event doctor-event"><header><span>07</span><b>医生动作</b></header><strong>编辑后发送</strong><p>真人医生确认候选差异并发送给患者</p><code>doctor.edit_and_send_1</code></article>
           <div class="trace-arrow"><i></i><span>→</span></div>
           <article class="trace-event doctor-event"><header><span>08</span><b>医生动作</b></header><strong>编辑后发送</strong><p>选择候选回复，补充饮食建议后发送</p><code>doctor.edit_and_send_1</code></article>
           <div class="trace-arrow"><i></i><span>→</span></div>
@@ -653,6 +616,6 @@
     </main>
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
-    <script src="app.js" type="module"></script>
+    <script src="app.js?v=blueprint-v8" type="module"></script>
   </body>
 </html>

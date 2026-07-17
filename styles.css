@@ -308,6 +308,26 @@ button:focus-visible, textarea:focus-visible { outline: 3px solid rgba(204,120,9
 .hosted-card span { display: inline-block; margin-bottom: 5px; color: var(--clinic-muted); font-size: 5px; text-transform: uppercase; letter-spacing: .02em; }
 .hosted-card h3 { margin: 0 0 6px; font-size: 8px; line-height: 1.4; }
 .hosted-card p { margin: 0; color: var(--body); font-size: 6px; line-height: 1.55; }
+.hosted-showcase { display: grid; grid-template-columns: minmax(178px,1fr) 52px minmax(178px,1fr) 52px minmax(178px,1fr); align-items: center; gap: 8px; padding: 10px 14px 0; overflow-x: auto; }
+.hosted-phone-card { min-height: 208px; }
+.hosted-mini-screen { display: grid; gap: 6px; margin: 8px 0; padding: 8px; border-radius: 8px; background: var(--clinic-bg); }
+.hosted-mini-screen b { color: var(--clinic-primary); font-size: 6px; }
+.hosted-mini-screen p { padding: 6px; border-radius: 6px; background: var(--white); font-size: 6px; }
+.hosted-mini-screen i { justify-self: end; padding: 5px; border-radius: 6px; color: var(--clinic-ink); background: var(--clinic-soft); font-size: 5px; font-style: normal; }
+.hosted-mini-screen small { color: var(--clinic-muted); font-size: 5px; line-height: 1.45; }
+.doctor-mini { background: #eef5f2; }
+.doctor-mini div { display: flex; gap: 3px; flex-wrap: wrap; }
+.doctor-mini em { padding: 3px 4px; border-radius: 4px; color: var(--clinic-primary); background: var(--white); font-size: 5px; font-style: normal; }
+.hosted-arrow { display: grid; place-items: center; gap: 3px; color: var(--coral-dark); text-align: center; }
+.hosted-arrow span, .hosted-arrow small { font-size: 6px; line-height: 1.3; }
+.hosted-arrow b { font-size: 18px; font-weight: 400; }
+.doctor-arrow { color: var(--clinic-primary); }
+.voice-command-card { display: grid; gap: 3px; margin: 8px 10px; padding: 7px; border: 1px dashed rgba(45,103,89,.38); border-radius: 7px; background: #f1f8f5; }
+.voice-command-card span { color: var(--clinic-primary); font-size: 6px; }
+.voice-command-card b { color: var(--clinic-ink); font-size: 6px; font-weight: 500; line-height: 1.45; }
+.voice-command-card small { color: var(--clinic-muted); font-size: 5px; line-height: 1.35; }
+.compact-voice { margin: 6px 7px; padding: 5px 6px; }
+.compact-voice span, .compact-voice b { font-size: 5px; }
 .draft-card { flex: 0 0 213px; min-height: 256px; padding: 12px; border: 1px solid rgba(255,255,255,.09); border-radius: 9px; background: var(--dark); }
 .selected-draft { border-color: rgba(93,184,166,.48); }
 .draft-card > div { display: flex; justify-content: space-between; }
@@ -623,9 +643,98 @@ button:focus-visible, textarea:focus-visible { outline: 3px solid rgba(204,120,9
 .doctor-copilot-reply small { margin-top: 2px; color: var(--clinic-muted); font-size: 5px; }
 .doctor-copilot-reply > header > span { padding: 2px 4px; border-radius: 4px; color: var(--clinic-primary); background: var(--clinic-soft); font-size: 5px; }
 .doctor-copilot-reply > p { margin: 0; padding: 7px 8px; color: var(--clinic-ink); font-size: 6px; line-height: 1.55; }
+.live-model-candidates { display: flex; gap: 5px; padding: 7px; overflow-x: auto; scrollbar-width: none; }
+.live-model-candidates::-webkit-scrollbar { display: none; }
+.live-model-card { display: grid; flex: 0 0 102px; gap: 4px; min-height: 75px; padding: 6px; border: 1px solid var(--clinic-line) !important; border-radius: 6px !important; color: var(--clinic-ink) !important; background: var(--white) !important; text-align: left; }
+.live-model-card.selected { border-color: var(--clinic-primary) !important; box-shadow: inset 0 0 0 1px var(--clinic-primary); }
+.live-model-card span { color: var(--clinic-primary); font-size: 5px; font-weight: 600; }
+.live-model-card p { margin: 0; font-size: 5px; line-height: 1.45; }
+.live-model-card small { color: var(--clinic-muted); font-size: 5px; }
 .doctor-copilot-reply > footer { display: flex; justify-content: flex-end; gap: 4px; padding: 0 7px 7px; }
 .doctor-copilot-reply button { min-height: 22px; padding: 0 6px; border: 1px solid var(--clinic-line); border-radius: 5px; color: var(--clinic-primary); background: var(--clinic-card); font-size: 5px; }
 .doctor-copilot-reply button:last-child { color: var(--white); border-color: var(--clinic-primary); background: var(--clinic-primary); }
+
+/* V2 路由策略：用明确状态而非旧的补充问答卡表达“直接真人” */
+.direct-dispatch-state { display: grid; gap: 8px; margin-top: 10px; padding: 10px; border: 1px solid #d5e6de; border-radius: 9px; background: #f3faf6; }
+.direct-dispatch-state header { display: grid; grid-template-columns: 15px 1fr auto; gap: 5px; align-items: center; }
+.direct-dispatch-state header span { display: grid; place-items: center; width: 15px; height: 15px; border-radius: 50%; color: #fff; background: var(--clinic-primary); font-size: 8px; }
+.direct-dispatch-state header strong { color: var(--clinic-primary); font-size: 7px; }
+.direct-dispatch-state header b { color: var(--clinic-muted); font-size: 5px; font-weight: 500; }
+.direct-dispatch-state > div { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; }
+.direct-dispatch-state > div i { color: var(--clinic-muted); font-size: 5px; font-style: normal; }
+.direct-dispatch-state > div span { padding: 3px 5px; border-radius: 4px; color: var(--clinic-primary); background: #dcefe5; font-size: 5px; }
+.direct-dispatch-state p { margin: 0; color: #4c6a5d; font-size: 6px; line-height: 1.5; }
+.waiting-composer { opacity: .68; }
+.model-source-rail { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; margin: 5px 9px 0; }
+.model-source-rail span, .model-source-rail b { padding: 4px 5px; border-radius: 5px; font-size: 5px; font-weight: 500; }
+.model-source-rail span { color: #914b36; background: #fae9e2; }
+.model-source-rail b { color: #4a5d9e; background: #e9edfb; }
+.model-source-rail i { margin-left: auto; color: var(--clinic-muted); font-size: 5px; font-style: normal; }
+.partner-mode-note { display: grid; grid-template-columns: auto 1fr; gap: 4px 6px; margin-bottom: 9px; padding: 9px; border: 1px solid #decfa8; border-radius: 8px; background: #fff9e9; }
+.partner-mode-note span { align-self: start; padding: 3px 5px; border-radius: 4px; color: #7b6124; background: #f4e7bd; font-size: 5px; }
+.partner-mode-note strong { color: #59491f; font-size: 7px; }
+.partner-mode-note p { grid-column: 1 / -1; margin: 0; color: #776a47; font-size: 6px; line-height: 1.5; }
+
+.direct-doctor-waiting { margin: 10px 0 0; }
+.joined-transition-label { margin: 11px 0 5px; color: var(--muted); font-size: 5px; text-align: center; }
+.compact-joined-card { margin-bottom: 2px; }
+
+/* 第三条路径使用完整移动端界面，而非概念卡片 */
+.hosted-mobile-flow { display: grid; grid-template-columns: minmax(670px, 1fr) 84px minmax(300px, .46fr); gap: 22px; max-width: 1344px; margin: 30px auto 0; padding: 0 32px 68px; }
+.hosted-mobile-lane { min-width: 0; padding: 18px; border: 1px solid var(--line); border-radius: 16px; background: rgba(255,255,255,.45); }
+.hosted-mobile-lane > header { display: flex; align-items: baseline; gap: 10px; margin-bottom: 16px; }
+.hosted-mobile-lane > header span { padding: 4px 7px; border-radius: 5px; color: #914b36; background: #f7e4dc; font-size: 8px; }
+.doctor-hosted-lane > header span { color: var(--clinic-primary); background: var(--clinic-soft); }
+.hosted-mobile-lane > header strong { font-family: var(--serif); font-size: 16px; font-weight: 400; }
+.patient-hosted-lane { display: grid; grid-template-columns: var(--phone-width) 72px var(--phone-width); align-content: start; }
+.patient-hosted-lane > header { grid-column: 1 / -1; }
+.patient-hosted-lane .phone-step, .doctor-hosted-lane .phone-step { width: auto; }
+.hosted-flow-connector { display: grid; place-items: center; align-content: center; gap: 5px; color: var(--coral-dark); }
+.hosted-flow-connector span, .hosted-flow-connector small { font-size: 7px; text-align: center; }
+.hosted-flow-connector b { font-size: 19px; font-weight: 400; }
+.hosted-cross-handoff { display: grid; place-items: center; align-content: center; gap: 6px; color: var(--clinic-primary); text-align: center; }
+.hosted-cross-handoff span, .hosted-cross-handoff strong { font-size: 8px; font-weight: 500; }
+.hosted-cross-handoff b { font-size: 18px; font-weight: 400; }
+.hosted-room-screen { display: flex; flex-direction: column; padding-top: 27px; }
+.hosted-status-strip { display: flex; justify-content: space-between; gap: 5px; padding: 6px 9px; color: #8b563d; background: #fff1ea; font-size: 5px; }
+.hosted-status-strip b { font-weight: 500; }
+.hosted-room-screen .chat-body { display: block; min-height: 0; overflow-y: auto; }
+.hosted-room-screen .hosted-dialogue { display: grid; gap: 7px; }
+.hosted-question { display: grid; gap: 6px; margin: 9px 0; padding: 9px; border: 1px solid #efd9ce; border-radius: 8px; background: #fffaf7; }
+.hosted-question label { color: #a15d42; font-size: 5px; }
+.hosted-question strong { font-family: var(--serif); font-size: 9px; font-weight: 400; line-height: 1.45; }
+.hosted-question > div { display: flex; gap: 4px; }
+.hosted-question button { flex: 1; min-height: 23px; border: 1px solid #ecd4c9; border-radius: 5px; color: #8b563d; background: #fff; font-size: 5px; }
+.hosted-summary-mini { display: flex; justify-content: space-between; gap: 5px; padding: 7px; border-radius: 6px; color: #58655e; background: #f0f5f2; font-size: 5px; }
+.hosted-summary-mini b { color: var(--clinic-primary); font-weight: 600; }
+.hosted-doctor-screen { display: flex; flex-direction: column; padding-top: 27px; }
+.hosted-doctor-summary { display: grid; gap: 4px; margin: 8px 9px 4px; padding: 8px; border: 1px solid var(--clinic-line); border-radius: 7px; background: #f2f8f5; }
+.hosted-doctor-summary b { color: var(--clinic-primary); font-size: 6px; }
+.hosted-doctor-summary p { margin: 0; font-size: 6px; line-height: 1.45; }
+.hosted-doctor-summary span { color: var(--clinic-primary); font-size: 5px; }
+.hosted-copilot { margin-top: 4px; }
+.hosted-copilot .live-model-candidates { padding-bottom: 5px; }
+.hosted-copilot .live-model-card { flex-basis: 112px; min-height: 92px; }
+.hosted-copilot .live-model-card button { align-self: end; min-height: 17px; padding: 2px 3px; font-size: 4px; }
+
+/* 第三条路径：按既有双端蓝图的上下泳道复用完整手机页面 */
+.hosted-mobile-flow { display: none; }
+.nonpartner-viewport { width: 100%; padding: 0 24px 34px; overflow-x: auto; overscroll-behavior-inline: contain; scrollbar-color: var(--surface-strong) transparent; }
+.nonpartner-canvas { width: 1800px; margin: 0 auto; }
+.nonpartner-patient-grid { grid-template-columns: var(--phone-width) var(--connector-width) var(--phone-width) var(--connector-width) var(--phone-width) var(--connector-width) var(--phone-width); }
+.nonpartner-patient-grid > .phone-step:nth-of-type(1) { grid-column: 1; }
+.nonpartner-patient-grid > .phone-step:nth-of-type(2) { grid-column: 3; }
+.nonpartner-patient-grid > .phone-step:nth-of-type(3) { grid-column: 5; }
+.nonpartner-patient-grid > .phone-step:nth-of-type(4) { grid-column: 7; }
+.nonpartner-handoff { min-height: 132px; }
+.nonpartner-handoff .payment-handoff { grid-column: 3; }
+.nonpartner-doctor-grid > .phone-step:nth-of-type(1) { grid-column: 1; }
+.nonpartner-doctor-grid > .phone-step:nth-of-type(2) { grid-column: 3; }
+.nonpartner-doctor-grid > .phone-step:nth-of-type(3) { grid-column: 5; }
+.nonpartner-doctor-grid .ext-doctor-connector { margin-top: 260px; }
+.check-copilot { margin: 9px; }
+.check-copilot .live-model-card { min-height: 102px; }
+.live-model-card { cursor: pointer; }
 
 .trace-section { max-width: 1344px; margin: 54px auto 0; padding: 56px 32px 82px; border-top: 1px solid var(--line); }
 .trace-header { display: flex; align-items: flex-end; justify-content: space-between; gap: 32px; }
@@ -671,6 +780,8 @@ button:focus-visible, textarea:focus-visible { outline: 3px solid rgba(204,120,9
   .extension-header { align-items: flex-start; flex-direction: column; padding-inline: 20px; }
   .extension-viewport { padding-inline: 12px; }
   .extension-canvas { margin-left: 0; }
+  .hosted-showcase { grid-template-columns: 178px 42px 178px 42px 178px; }
+  .hosted-mobile-flow { grid-template-columns: 670px 70px 300px; padding-inline: 20px; overflow-x: auto; }
 }
 
 @media (max-width: 520px) {
@@ -685,6 +796,7 @@ button:focus-visible, textarea:focus-visible { outline: 3px solid rgba(204,120,9
   .trace-id { width: 100%; }
   .extension-header h2 { font-size: 31px; }
   .extension-path { justify-content: flex-start; }
+  .hosted-mobile-flow { padding-inline: 12px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
