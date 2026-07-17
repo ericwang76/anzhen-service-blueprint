@@ -27,7 +27,7 @@
         <h1>从搜索疑虑，到医生确认。</h1>
         <p>每一屏只推进一个决定：AI 缩短表达成本，真人医生保留最终判断。</p>
         <div class="flow-summary" aria-label="流程摘要">
-          <span>搜索触发</span><b>→</b><span>AI 补充信息</span><b>→</b><span>真人医生核验</span><b>→</b><span>回答与问诊转化</span>
+          <span>搜索触发</span><b>→</b><span>直接提交真人医生</span><b>→</b><span>真人处理</span><b>→</b><span>回答与问诊转化</span>
         </div>
       </section>
 
@@ -68,7 +68,7 @@
               <div class="connector patient-connector" aria-label="分配医生并带入上下文"><span>分配医生</span><i></i><b>→</b><small>Query + 核验内容自动带入</small></div>
 
               <article class="phone-step" id="step-p2" data-index="2">
-                <div class="step-caption"><span>02</span><div><strong>医生智能助手接待</strong><small>群聊中自然承接搜索上下文</small></div></div>
+                <div class="step-caption"><span>02</span><div><strong>直接提交真人医生</strong><small>要验证的信息原样进入医生待办</small></div></div>
                 <div class="phone-shell patient-phone">
                   <div class="phone-top"><span>14:28</span><i></i><span>▮▮ 86%</span></div>
                   <div class="phone-screen room-screen">
@@ -82,17 +82,17 @@
                         <div class="source-preview"><span>百度百科 · 空腹血糖正常值及异常范围</span><p>“空腹血糖在 6.1～7.0 mmol/L 之间时，可能属于空腹血糖受损……”</p></div>
                         <div class="context-meta"><span>百科内容</span><span>三甲医生审校</span><span>已截取疑虑段落</span></div>
                       </div>
-                      <div class="ai-row"><div class="mini-ai">✣</div><span><strong>医生智能助手 <em>AI</em></strong><p>你好，你刚看到的血糖范围和“6.3 是否异常”都已带进咨询室，林医生可以直接看到。再补充 3 个小信息，医生判断会更贴合；不方便也可以跳过。</p></span></div>
-                      <div class="live-dialogue" id="liveDialogue" hidden></div>
-                      <div class="question-panel">
-                        <div class="q-progress"><span>补充信息</span><b>1 / 3</b></div>
-                        <i class="progress-bar"></i>
-                        <h3>这次 6.3 是在什么情况下测的？</h3>
-                        <button class="selected" type="button">晨起空腹 8～12 小时 <span>✓</span></button>
-                        <button type="button">空腹不足 8 小时</button>
-                        <button type="button">饭后测量 / 记不清</button>
-                        <div class="q-actions"><span>跳过</span><button class="coral-button flow-trigger" data-target="bridge-submit" type="button">提交核验</button></div>
-                      </div>
+                      <div class="ai-row"><div class="mini-ai">✓</div><span><strong>已提交给林医生</strong><p>你想验证的百科段落和搜索问题已原样发送给真人医生。无需再补充信息，医生处理后会直接在这里回复。</p></span></div>
+                                            <div class="live-dialogue" id="liveDialogue" hidden></div>
+                                            <div class="question-panel waiting-panel">
+                                              <div class="q-progress"><span>等待真人处理</span><b>预计 3 分钟内</b></div>
+                                              <i class="progress-bar"></i>
+                                              <h3>林医生正在查看这段内容</h3>
+                                              <button class="selected" type="button">百科原文与搜索 Query 已同步</button>
+                                              <button type="button">用户无需填写补充信息</button>
+                                              <button type="button">有回复后自动提醒</button>
+                                            </div>
+                                            <button class="primary-action" id="submitCheckBtn" type="button">已提交，等待医生回复</button>
                       <div class="scroll-hint">上下滑动查看完整对话</div>
                     </div>
                     <form class="chat-composer" data-reply="收到，我会把这条信息一起整理给林医生。我们继续补充下面的信息就好。"><button type="button" aria-label="添加内容">＋</button><input autocomplete="off" placeholder="和医生、智能助手说点什么…" /><button class="send-chat" type="submit" aria-label="发送">↑</button></form>
@@ -203,7 +203,7 @@
               <div class="connector doctor-connector"><span>进入核验</span><i></i><b>→</b><small>信息与回答同屏呈现</small></div>
 
               <article class="phone-step" id="step-d2" data-index="6">
-                <div class="step-caption"><span>06</span><div><strong>同屏核验工作台</strong><small>用户信息与 Copilot 回答不跳页</small></div></div>
+                <div class="step-caption"><span>06</span><div><strong>多模型 Copilot 候选</strong><small>2 个文心 lite + 1 个 gpt-5.6sol</small></div></div>
                 <div class="phone-shell doctor-phone">
                   <div class="phone-top dark-top"><span>14:31</span><i></i><span>▮▮ 71%</span></div>
                   <div class="phone-screen doctor-mobile case-workbench">
@@ -214,15 +214,27 @@
                       <div class="info-block"><label>想核验的百科内容</label><small>百度百科 · 空腹血糖正常值及异常范围</small><blockquote>“成年人空腹血糖正常范围通常为 3.9～6.1 mmol/L。空腹血糖在 6.1～7.0 mmol/L 之间时，可能属于空腹血糖受损。”</blockquote></div>
                       <div class="info-block"><label>用户补充信息</label><dl><div><dt>测量条件</dt><dd>晨起空腹 10 小时</dd></div><div><dt>既往情况</dt><dd>首次发现偏高</dd></div><div><dt>风险因素</dt><dd>母亲有糖尿病</dd></div></dl></div>
                     </section>
-                    <div class="copilot-inline-head"><div class="copilot-icon">✣</div><span><strong>Copilot 完整回答</strong><small>左右滑动比较 · 点击选择</small></span></div>
-                    <div class="full-draft-carousel">
-                      <button class="full-draft compact-draft selected" type="button">
-                        <header><span><i>A</i><strong>简明结论型</strong></span><b>✓ 已选择</b></header>
-                        <p>这段百科内容基本准确。你这次空腹血糖 6.3 mmol/L 高于一般参考上限，但单次结果不能诊断糖尿病，更符合“需要复查确认”的情况。</p>
-                        <p>结合你是首次发现偏高、且有糖尿病家族史，建议保持正常饮食，1～2 周内复查空腹血糖，并同时检查糖化血红蛋白（HbA1c）。如果复查仍 ≥6.1 mmol/L，建议到内分泌科进一步评估。</p>
-                      </button>
-                      <button class="full-draft compact-draft" type="button">
-                        <header><span><i>B</i><strong>解释安抚型</strong></span><b>选择</b></header>
+                    <div class="copilot-inline-head"><div class="copilot-icon">✣</div><span><strong>Copilot 预生成回复</strong><small>2 个文心 lite + 1 个 gpt-5.6sol · 点击选择</small></span></div>
+                                        <div class="full-draft-carousel">
+                                          <button class="full-draft compact-draft selected" type="button" data-reply="这段百科内容基本准确。你这次空腹血糖 6.3 mmol/L 略高于一般参考上限，但单次结果不能诊断糖尿病，更适合理解为需要复查确认。\n\n建议保持正常饮食，1～2 周内复查空腹血糖，并同步检查糖化血红蛋白（HbA1c）。如果复查仍 ≥6.1 mmol/L，再到内分泌科进一步评估。">
+                                            <header><span><i>A</i><strong>文心 lite · 简明结论</strong></span><b>✓ 已选择</b></header>
+                                            <p>这段百科内容基本准确。空腹血糖 6.3 mmol/L 略高于一般参考上限，但单次结果不能诊断糖尿病。</p>
+                                            <p>建议 1～2 周内复查空腹血糖，并同步检查糖化血红蛋白（HbA1c）。</p>
+                                            <footer><span>边界清楚</span><span>适合快速回复</span><button class="voice-edit" type="button">语音编辑</button></footer>
+                                          </button>
+                                          <button class="full-draft compact-draft" type="button" data-reply="先不用太紧张。这段百科对正常范围和空腹血糖受损的描述基本没问题，但你这次 6.3 mmol/L 只能说明结果偏高，需要结合采血条件和复查结果判断。\n\n如果近期熬夜、感染、压力大或饮食变化明显，也可能影响一次结果。建议按正常饮食生活 1～2 周后复查空腹血糖和 HbA1c。">
+                                            <header><span><i>B</i><strong>文心 lite · 安抚解释</strong></span><b>可选</b></header>
+                                            <p>先不用太紧张。百科对范围的描述基本没问题，但这次 6.3 只能说明偏高，需要复查确认。</p>
+                                            <p>近期熬夜、感染、压力或饮食变化也可能影响结果。</p>
+                                            <footer><span>语气温和</span><span>解释更充分</span><button class="voice-edit" type="button">语音编辑</button></footer>
+                                          </button>
+                                          <button class="full-draft compact-draft" type="button" data-reply="从你提供的信息看，6.3 mmol/L 落在空腹血糖受损区间附近，百科原文可以作为参考，但不能替代诊断。更稳妥的处理是复核检测条件、重复检测，并结合 HbA1c 判断近 2～3 个月血糖水平。\n\n如果复查仍偏高，或伴有口渴、多尿、体重下降等症状，应尽快到内分泌科就诊。">
+                                            <header><span><i>C</i><strong>gpt-5.6sol · 结构化建议</strong></span><b>可选</b></header>
+                                            <p>6.3 mmol/L 落在空腹血糖受损区间附近。百科可作参考，但不能替代诊断。</p>
+                                            <p>建议复核检测条件、重复检测，并结合 HbA1c 判断近 2～3 个月血糖水平。</p>
+                                            <footer><span>结构完整</span><span>风险提示清楚</span><button class="voice-edit" type="button">语音编辑</button></footer>
+                                          </button>
+                                        </div>
                         <p>你看到的百科表述总体没有问题，但“可能属于空腹血糖受损”并不等于已经患糖尿病。空腹血糖 6.3 mmol/L 属于偏高，需要结合检测条件和复查结果判断。</p>
                         <p>这次是在规范空腹状态下检测，加上母亲有糖尿病，建议 1～2 周后复查空腹血糖和糖化血红蛋白。目前不用过度焦虑，也不建议自行用药。</p>
                       </button>
@@ -241,12 +253,12 @@
                 <div class="phone-shell doctor-phone">
                   <div class="phone-top dark-top"><span>14:32</span><i></i><span>▮▮ 70%</span></div>
                   <div class="phone-screen doctor-mobile editor-mobile">
-                    <header class="doctor-nav"><span>‹</span><div><strong>编辑核验回答</strong><small>已基于回答 A 创建</small></div><em>✓</em></header>
-                    <div class="edit-label"><span>回答正文</span><button type="button" id="editReplyBtn">完成编辑</button></div>
+                    <header class="doctor-nav"><span>‹</span><div><strong>语音编辑回复</strong><small>可直接说出需要修正的地方</small></div><em>✓</em></header>
+                    <div class="edit-label"><span>AI 回复卡</span><button type="button" id="editReplyBtn">语音编辑</button></div>
                     <textarea id="doctorReplyText">这段百科内容基本准确。你这次空腹血糖 6.3 mmol/L 高于一般参考上限，但单次结果不能诊断糖尿病，更符合“需要复查确认”的情况。
 
 结合你是首次发现偏高、且有糖尿病家族史，建议保持正常饮食，1～2 周内复查空腹血糖，并同时检查糖化血红蛋白（HbA1c）。如果复查仍 ≥6.1 mmol/L，建议到内分泌科进一步评估。</textarea>
-                    <div class="smart-check"><span>✣ Copilot 检查完成</span><b>诊断边界、复查建议与风险表述均无异常</b></div>
+                    <div class="smart-check"><span>✣ Copilot 检查完成</span><b>可先语音补充修改方向，再生成符合医生表达习惯的回复</b></div>
                     <div class="send-confirm simple-send"><button class="teal-button flow-trigger" data-target="bridge-response" id="sendReplyBtn" type="button">发送给患者 <span>↑</span></button></div>
                   </div>
                   <div class="home-indicator dark-indicator"></div>
@@ -345,9 +357,9 @@
           <div>
             <span class="eyebrow">PAID CONSULTATION · AFTER STEP 04</span>
             <h2 id="consultationTitle">从核验升级为一次完整真人问诊。</h2>
-            <p>支付后由医生智能助手继续陪伴和预问诊；医生接诊时开启限时真人 IM，结束后回到咨询室沉淀问诊小结。</p>
+            <p>圈定一部分合作医生全程参与 AI 回答的标注反馈；用户支付诊费后，直接等待真人接入，医生接诊时开启限时真人 IM，结束后回到咨询室沉淀问诊小结。</p>
           </div>
-          <div class="extension-path"><span>支付成功</span><b>→</b><span>预问诊</span><b>→</b><span>医生接诊</span><b>→</b><span>限时 IM</span><b>→</b><span>小结指导</span></div>
+          <div class="extension-path"><span>支付成功</span><b>→</b><span>等待真人接入</span><b>→</b><span>合作医生参与标注</span><b>→</b><span>限时 IM</span><b>→</b><span>小结指导</span></div>
         </header>
 
         <div class="extension-viewport" id="extensionViewport">
@@ -361,7 +373,7 @@
 
               <div class="extension-grid patient-extension-grid">
                 <article class="phone-step" id="step-p5">
-                  <div class="step-caption"><span>05</span><div><strong>支付成功，等待接诊</strong><small>结果明确，等待可感知</small></div></div>
+                  <div class="step-caption"><span>05</span><div><strong>支付成功，等待真人接入</strong><small>付费后不再由 AI 追问，直接排队接诊</small></div></div>
                   <div class="phone-shell patient-phone">
                     <div class="phone-top"><span>15:06</span><i></i><span>▮▮ 79%</span></div>
                     <div class="phone-screen room-screen">
@@ -383,10 +395,10 @@
                   </div>
                 </article>
 
-                <div class="connector patient-connector"><span>等待期间</span><i></i><b>→</b><small>智能助手主动预问诊</small></div>
+                <div class="connector patient-connector"><span>等待期间</span><i></i><b>→</b><small>不追加 AI 追问，等待真人接入</small></div>
 
                 <article class="phone-step" id="step-p6">
-                  <div class="step-caption"><span>06</span><div><strong>多轮预问诊</strong><small>先把真人沟通的重点问清楚</small></div></div>
+                  <div class="step-caption"><span>06</span><div><strong>等待合作医生接入</strong><small>AI 不再追问，保留支付与核验上下文</small></div></div>
                   <div class="phone-shell patient-phone">
                     <div class="phone-top"><span>15:08</span><i></i><span>▮▮ 78%</span></div>
                     <div class="phone-screen room-screen">
@@ -545,7 +557,7 @@
                 <div class="ext-doctor-connector second-doctor-connector"><span>医生接诊</span><i></i><b>→</b><small>推送接入状态与限时 IM</small></div>
 
                 <article class="phone-step" id="step-d6">
-                  <div class="step-caption"><span>D6</span><div><strong>医生真人 IM</strong><small>Copilot 推荐回复可直接采用</small></div></div>
+                  <div class="step-caption"><span>D6</span><div><strong>医生真人 IM</strong><small>同样使用多模型 Copilot 与语音编辑</small></div></div>
                   <div class="phone-shell doctor-phone">
                     <div class="phone-top dark-top"><span>15:18</span><i></i><span>▮▮ 66%</span></div>
                     <div class="phone-screen doctor-mobile doctor-live-im">
@@ -559,9 +571,9 @@
                           <div class="doctor-side-message">可以，放在两餐之间，每次一个拳头大小，先避免果汁。</div>
                         </div>
                         <section class="doctor-copilot-reply">
-                          <header><div class="copilot-icon">✣</div><div><strong>Copilot 推荐回复</strong><small>结合本次问诊上下文生成</small></div><span>AI</span></header>
+                          <header><div class="copilot-icon">✣</div><div><strong>Copilot 多模型候选</strong><small>文心 lite ×2 / gpt-5.6sol ×1 · 结合本次问诊上下文</small></div><span>AI</span></header>
                           <p>水果可以吃，建议放在两餐之间，每次约一个拳头大小；优先苹果、梨或莓果，先避免果汁和高糖水果。</p>
-                          <footer><button id="copilotInsertBtn" type="button">插入编辑</button><button id="copilotSendBtn" type="button">直接发送</button></footer>
+                          <footer><button id="copilotInsertBtn" type="button">插入编辑</button><button class="voice-edit" type="button">语音编辑</button><button id="copilotSendBtn" type="button">直接发送</button></footer>
                         </section>
                         <div class="doctor-quick-tools"><button type="button">复查建议</button><button type="button">饮食模板</button><button type="button">发送图片</button></div>
                       <form class="doctor-im-composer"><button type="button">＋</button><input id="doctorLiveInput" placeholder="回复患者…" /><button type="button">↑</button></form>
@@ -573,6 +585,34 @@
               </div>
             </section>
           </div>
+        </div>
+      </section>
+
+      <section class="consultation-extension hosted-extension" aria-labelledby="hostedConsultTitle">
+        <header class="extension-header">
+          <div>
+            <span class="eyebrow">NON-PARTNER DOCTOR · AI HOSTED PRE-CONSULT</span>
+            <h2 id="hostedConsultTitle">非合作医生提供 AI 托管预问诊。</h2>
+            <p>当医生暂未真人接入时，AI 先自动完成预问诊、整理病史和问题清单；真人医生接入后，医生端继续使用同样改造后的 Copilot 完成真人问诊。</p>
+          </div>
+          <div class="extension-path"><span>支付成功</span><b>→</b><span>AI 托管预问诊</span><b>→</b><span>真人接入</span><b>→</b><span>多模型 Copilot</span><b>→</b><span>医生回复</span></div>
+        </header>
+        <div class="hosted-grid">
+          <article class="hosted-card">
+            <span>患者侧</span>
+            <h3>医生接入前，AI 自动预问诊</h3>
+            <p>围绕主诉、持续时间、症状、用药、既往史自动追问，用户感知为“已开始整理给医生”。</p>
+          </article>
+          <article class="hosted-card">
+            <span>医生侧</span>
+            <h3>接入后直接看到托管摘要</h3>
+            <p>非合作医生不参与前置标注，但接诊时能看到 AI 托管预问诊摘要，并使用同样的 2 个文心 lite + 1 个 gpt-5.6sol 候选回复。</p>
+          </article>
+          <article class="hosted-card">
+            <span>Copilot</span>
+            <h3>回复卡继续支持语音编辑</h3>
+            <p>医生可以直接语音告诉 AI 修改原回复的重点，再生成符合医生需要的最终回复。</p>
+          </article>
         </div>
       </section>
 

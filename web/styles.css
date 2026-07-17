@@ -289,7 +289,25 @@ button:focus-visible, textarea:focus-visible { outline: 3px solid rgba(204,120,9
 .copilot-mobile-head strong, .copilot-mobile-head small { display: block; }
 .copilot-mobile-head strong { font-size: 8px; }
 .copilot-mobile-head small { margin-top: 2px; color: var(--muted-soft); font-size: 6px; }
-.draft-carousel { display: flex; gap: 7px; padding-left: 10px; overflow: hidden; }
+.full-draft-carousel { display: flex; gap: 7px; padding: 0 9px 3px; overflow-x: auto; }
+.full-draft { min-width: 120px; border: 1px solid var(--clinic-line); border-radius: 8px; padding: 7px; background: var(--white); text-align: left; }
+.full-draft.selected { border-color: var(--clinic-primary); box-shadow: 0 0 0 1px rgba(53,100,170,.08); }
+.full-draft header { display: flex; justify-content: space-between; align-items: center; gap: 6px; margin-bottom: 5px; }
+.full-draft header span { display: inline-flex; align-items: center; gap: 5px; }
+.full-draft header i { display: inline-grid; place-items: center; width: 12px; height: 12px; border-radius: 999px; background: var(--clinic-soft); color: var(--clinic-primary); font-style: normal; font-size: 6px; }
+.full-draft header b { font-size: 5px; color: var(--clinic-primary); }
+.full-draft p { margin: 0 0 5px; color: var(--body); font-size: 6px; line-height: 1.5; }
+.full-draft footer { display: flex; gap: 4px; align-items: center; flex-wrap: wrap; }
+.full-draft footer span { padding: 2px 4px; border-radius: 4px; color: var(--clinic-muted); background: var(--clinic-soft); font-size: 5px; }
+.voice-edit { padding: 2px 5px; border-radius: 999px; border: 1px solid var(--clinic-primary); color: var(--clinic-primary); background: #fff; font-size: 5px; }
+.voice-edited { box-shadow: inset 0 0 0 1px rgba(53,100,170,.18); transition: box-shadow .2s ease; }
+
+.hosted-extension { margin-top: 14px; }
+.hosted-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; padding: 10px 14px 0; }
+.hosted-card { padding: 12px; border: 1px solid var(--clinic-line); border-radius: 10px; background: var(--white); }
+.hosted-card span { display: inline-block; margin-bottom: 5px; color: var(--clinic-muted); font-size: 5px; text-transform: uppercase; letter-spacing: .02em; }
+.hosted-card h3 { margin: 0 0 6px; font-size: 8px; line-height: 1.4; }
+.hosted-card p { margin: 0; color: var(--body); font-size: 6px; line-height: 1.55; }
 .draft-card { flex: 0 0 213px; min-height: 256px; padding: 12px; border: 1px solid rgba(255,255,255,.09); border-radius: 9px; background: var(--dark); }
 .selected-draft { border-color: rgba(93,184,166,.48); }
 .draft-card > div { display: flex; justify-content: space-between; }

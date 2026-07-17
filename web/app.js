@@ -4,6 +4,8 @@ const playButton = document.querySelector("#playFlowBtn");
 const toast = document.querySelector("#toast");
 const editButton = document.querySelector("#editReplyBtn");
 const replyText = document.querySelector("#doctorReplyText");
+const draftButtons = document.querySelectorAll(".full-draft[data-reply]");
+const voiceEditButtons = document.querySelectorAll(".voice-edit");
 const openDoctorImButton = document.querySelector("#openDoctorImBtn");
 const closeDoctorImButton = document.querySelector("#closeDoctorImBtn");
 const doctorImSheet = document.querySelector("#doctorImSheet");
@@ -135,12 +137,34 @@ playButton.addEventListener("click", () => {
     focusStep(steps[index], false);
   }, 1400);
 });
-
-editButton.addEventListener("click", () => {
-  replyText.readOnly = !replyText.readOnly;
-  editButton.textContent = replyText.readOnly ? "编辑" : "完成";
-  if (!replyText.readOnly) replyText.focus();
+draftButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    draftButtons.forEach((draft) => {
+      draft.classList.remove("selected");
+      const badge = draft.querySelector("header b");
+      if (badge) badge.textContent = "可选";
+    });
+    button.classList.add("selected");
+    const badge = button.querySelector("header b");
+    if (badge) badge.textContent = "✓ 已选择";
+    if (replyText && button.dataset.reply) replyText.value = button.dataset.reply;
+    showToast("已切换为当前模型候选回复，可继续语音编辑");
+  });
 });
+
+function applyVoiceEdit() {
+  if (!replyText) return;
+  replyText.value = "这段百科内容基本准确。你这次空腹血糖 6.3 mmol/L 比常用参考上限略高，但一次检查不能诊断糖尿病，需要复查确认。\n\n建议先保持正常饮食和作息，1～2 周内复查空腹血糖，同时加查糖化血红蛋白（HbA1c）。如果复查仍偏高，或出现口渴、多尿、体重下降，再到内分泌科进一步评估。";
+  replyText.classList.add("voice-edited");
+  setTimeout(() => replyText.classList.remove("voice-edited"), 900);
+  showToast("已按语音要求弱化诊断语气，并补充复查条件");
+}
+
+editButton?.addEventListener("click", applyVoiceEdit);
+voiceEditButtons.forEach((button) => button.addEventListener("click", (event) => {
+  event.stopPropagation();
+  applyVoiceEdit();
+}));
 
 function focusStep(id, announce = true) {
   document.querySelectorAll(".phone-step").forEach((step) => step.classList.remove("active-step"));
