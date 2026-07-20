@@ -6,7 +6,7 @@
     <meta name="theme-color" content="#faf9f5" />
     <meta name="description" content="安诊真人医生核验服务双端移动流程设计" />
     <title>安诊 · 双端移动服务蓝图</title>
-    <link rel="stylesheet" href="styles.css?v=blueprint-v8" />
+    <link rel="stylesheet" href="styles.css?v=blueprint-v9" />
   </head>
   <body>
     <header class="topbar">
@@ -24,7 +24,7 @@
     <main id="top">
       <section class="intro">
         <span class="eyebrow">MOBILE SERVICE BLUEPRINT · CO-PILOT ROUTING V2.0</span>
-        <h1>真人医生核验百看内容。</h1>
+        <h1>运营场景一：真人医生核验百看内容。</h1>
         <div class="flow-summary" aria-label="流程摘要">
           <span>搜索触发</span><b>→</b><span>直接提交真人医生</span><b>→</b><span>真人处理</span><b>→</b><span>回答与问诊转化</span>
         </div>
@@ -290,7 +290,7 @@
         <header class="extension-header">
           <div>
             <span class="eyebrow">PAID CONSULTATION · AFTER STEP 04</span>
-            <h2 id="consultationTitle">真人医生全流程标注 AI 生成内容。</h2>
+            <h2 id="consultationTitle">运营场景二：真人医生全流程标注 AI 生成内容。</h2>
             <p>用户支付后直接等待真人医生接入；从第一轮沟通开始，AI 为每次回复提供多模型候选，真人医生选择、语音修订或编辑后发送，沉淀完整标注回合。</p>
           </div>
           <div class="extension-path"><span>支付成功</span><b>→</b><span>等待真人接入</span><b>→</b><span>真人标注 AI 生成</span><b>→</b><span>限时 IM</span><b>→</b><span>小结指导</span></div>
@@ -489,7 +489,7 @@
         <header class="extension-header">
           <div>
             <span class="eyebrow">AI PARTIAL CONSULTATION · HUMAN DOCTOR ANNOTATION</span>
-            <h2 id="hostedConsultTitle">AI 完成部分问诊，真人接诊后标注 AI 生成内容。</h2>
+            <h2 id="hostedConsultTitle">运营场景三：AI 完成部分问诊，真人接诊后标注 AI 生成内容。</h2>
             <p>真人医生接入前，AI 先通过多轮对话整理部分问诊信息；医生接入后接管会话，并沿用多模型候选、语音修订与最终发送的标注流程。</p>
           </div>
           <div class="extension-path"><span>支付成功</span><b>→</b><span>AI 托管预问诊</span><b>→</b><span>真人接入即停止</span><b>→</b><span>多模型 Copilot</span><b>→</b><span>医生回复</span></div>
@@ -616,6 +616,6 @@
     </main>
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
-    <script src="app.js?v=blueprint-v8" type="module"></script>
+    <script src="app.js?v=blueprint-v9" type="module"></script>
   </body>
 </html>
