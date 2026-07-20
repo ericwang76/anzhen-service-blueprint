@@ -1,17 +1,14 @@
-const steps = ["step-p1", "step-p2", "bridge-submit", "step-d1", "step-d2", "step-d3", "bridge-response", "step-p4", "step-p5", "consult-payment-handoff", "step-p6", "step-d4", "step-d5", "consult-join-handoff", "step-p7", "step-p8", "step-d6", "step-p9"];
+const steps = ["step-p1", "step-p2", "bridge-submit", "step-d1", "step-d2", "bridge-response", "step-p4", "step-p5", "consult-payment-handoff", "step-d4", "step-d5", "consult-join-handoff", "step-p8", "step-d6", "step-p9", "step-p10", "step-p11", "step-d7"];
 const viewport = document.querySelector("#blueprintViewport");
 const playButton = document.querySelector("#playFlowBtn");
 const toast = document.querySelector("#toast");
-const editButton = document.querySelector("#editReplyBtn");
-const replyText = document.querySelector("#doctorReplyText");
-const draftButtons = document.querySelectorAll(".full-draft[data-reply]");
 const voiceEditButtons = document.querySelectorAll(".voice-edit");
 const openDoctorImButton = document.querySelector("#openDoctorImBtn");
 const closeDoctorImButton = document.querySelector("#closeDoctorImBtn");
 const doctorImSheet = document.querySelector("#doctorImSheet");
 const doctorImBackdrop = document.querySelector("#doctorImBackdrop");
 const doctorLiveInput = document.querySelector("#doctorLiveInput");
-const copilotReply = "水果可以吃，建议放在两餐之间，每次约一个拳头大小；优先苹果、梨或莓果，先避免果汁和高糖水果。";
+let copilotReply = "水果可以吃，建议放在两餐之间，每次约一个拳头大小；优先苹果、梨或莓果，先避免果汁和高糖水果。";
 let playTimer;
 let toastTimer;
 let playing = false;
@@ -78,7 +75,7 @@ document.querySelector(".consult-card .cream-button")?.addEventListener("click",
 openDoctorImButton?.addEventListener("click", () => {
   doctorImSheet.classList.add("open");
   doctorImBackdrop.classList.add("open");
-  showToast("已打开与林医生的真人对话，预问诊记录已同步");
+  showToast("已打开与林医生的真人对话，前序核验记录已同步");
 });
 
 function closeDoctorIm() {
@@ -91,7 +88,7 @@ doctorImBackdrop?.addEventListener("click", closeDoctorIm);
 
 document.querySelector("#acceptConsultBtn")?.addEventListener("click", () => {
   focusStep("consult-join-handoff");
-  window.setTimeout(() => focusStep("step-p7", false), 900);
+  window.setTimeout(() => focusStep("step-p8", false), 900);
 });
 
 document.querySelector("#endConsultBtn")?.addEventListener("click", () => {
@@ -118,6 +115,37 @@ document.querySelector("#copilotSendBtn")?.addEventListener("click", () => {
   showToast("已以医生身份发送 Copilot 推荐回复");
 });
 
+document.querySelectorAll(".live-model-card[data-live-reply]").forEach((card) => {
+  card.addEventListener("click", () => {
+    const scope = card.closest(".doctor-copilot-reply");
+    scope?.querySelectorAll(".live-model-card").forEach((item) => {
+      item.classList.remove("selected");
+      const label = item.querySelector("small");
+      if (label) label.textContent = "可选";
+    });
+    card.classList.add("selected");
+    const label = card.querySelector("small");
+    if (label) label.textContent = "✓ 已选";
+    copilotReply = card.dataset.liveReply || copilotReply;
+    showToast("已选中当前模型候选，可直接发送或语音修订");
+  });
+});
+
+document.querySelectorAll(".live-model-card[data-check-reply]").forEach((card) => {
+  card.addEventListener("click", () => {
+    const scope = card.closest(".doctor-copilot-reply");
+    scope?.querySelectorAll(".live-model-card").forEach((item) => {
+      item.classList.remove("selected");
+      const label = item.querySelector("small");
+      if (label) label.textContent = "可选";
+    });
+    card.classList.add("selected");
+    const label = card.querySelector("small");
+    if (label) label.textContent = "✓ 已选";
+    showToast("已选择当前模型候选，可直接发送或语音改写");
+  });
+});
+
 playButton.addEventListener("click", () => {
   if (playing) {
     stopTour();
@@ -137,33 +165,27 @@ playButton.addEventListener("click", () => {
     focusStep(steps[index], false);
   }, 1400);
 });
-draftButtons.forEach((button) => {
-  button.addEventListener("click", () => {
-    draftButtons.forEach((draft) => {
-      draft.classList.remove("selected");
-      const badge = draft.querySelector("header b");
-      if (badge) badge.textContent = "可选";
-    });
-    button.classList.add("selected");
-    const badge = button.querySelector("header b");
-    if (badge) badge.textContent = "✓ 已选择";
-    if (replyText && button.dataset.reply) replyText.value = button.dataset.reply;
-    showToast("已切换为当前模型候选回复，可继续语音编辑");
-  });
-});
-
-function applyVoiceEdit() {
-  if (!replyText) return;
-  replyText.value = "这段百科内容基本准确。你这次空腹血糖 6.3 mmol/L 比常用参考上限略高，但一次检查不能诊断糖尿病，需要复查确认。\n\n建议先保持正常饮食和作息，1～2 周内复查空腹血糖，同时加查糖化血红蛋白（HbA1c）。如果复查仍偏高，或出现口渴、多尿、体重下降，再到内分泌科进一步评估。";
-  replyText.classList.add("voice-edited");
-  setTimeout(() => replyText.classList.remove("voice-edited"), 900);
-  showToast("已按语音要求弱化诊断语气，并补充复查条件");
-}
-
-editButton?.addEventListener("click", applyVoiceEdit);
 voiceEditButtons.forEach((button) => button.addEventListener("click", (event) => {
   event.stopPropagation();
-  applyVoiceEdit();
+  if (button.dataset.voiceTarget === "live") {
+    const card = button.closest(".live-model-card");
+    if (card?.dataset.liveReply) copilotReply = card.dataset.liveReply;
+    copilotReply = "水果可以适量吃，尽量安排在两餐之间，每次一个拳头大小即可。可以优先选完整水果，先不喝果汁；后续再结合复查结果一起调整。";
+    if (doctorLiveInput) doctorLiveInput.value = copilotReply;
+    showToast(`正在根据 ${button.dataset.source || "当前候选"} 的语音要求生成新版本`);
+    return;
+  }
+  const candidate = button.closest(".live-model-card");
+  const scope = candidate?.closest(".doctor-copilot-reply");
+  scope?.querySelectorAll(".live-model-card").forEach((item) => {
+    item.classList.remove("selected");
+    const label = item.querySelector("small");
+    if (label) label.textContent = "可选";
+  });
+  candidate?.classList.add("selected");
+  const label = candidate?.querySelector("small");
+  if (label) label.textContent = "✓ 已选 · 语音修订中";
+  showToast(`正在根据 ${button.dataset.source || "当前候选"} 的语音要求生成新版本`);
 }));
 
 function focusStep(id, announce = true) {
@@ -195,23 +217,23 @@ function stopTour() {
 
 function stepMessage(id) {
   return {
-    "step-p2": "进入患者咨询室：搜索上下文已自动带入",
+    "step-p2": "搜索上下文已送达林医生，正在真人核验",
     "bridge-submit": "跨端提交：服务单已发送给真人医生",
     "step-d1": "医生收到完整核验服务单",
-    "step-d2": "Copilot 已生成两种回答方案",
-    "step-d3": "医生审核、编辑并承担最终发送动作",
+    "step-d2": "Copilot 已生成 2 个文心 lite 与 1 个 gpt-5.6sol 候选",
     "bridge-response": "跨端回传：医生回答送达患者咨询室",
     "step-p4": "患者获得核验结论，并可继续真人问诊",
-    "step-p5": "支付成功：问诊订单已创建，等待医生接诊",
-    "step-p6": "医生智能助手正在进行接诊前预问诊",
+    "step-p5": "支付成功：同一咨询室将从等待状态切换到医生接入卡",
     "consult-payment-handoff": "付费问诊订单与完整上下文已送达医生端",
     "step-d4": "医生从多类型订单中心定位付费问诊",
-    "step-d5": "医生查看付费问诊订单与预问诊摘要",
+    "step-d5": "合作医生查看问诊上下文，并参与 AI 标注反馈",
     "consult-join-handoff": "医生已接诊，患者端即将开启真人 IM",
-    "step-p7": "医生接入卡已推送到患者咨询室",
     "step-p8": "患者与医生正在限时真人 IM 中多轮沟通",
-    "step-d6": "医生端真人会话进行中，Copilot 可推荐回复",
+    "step-d6": "真人会话中，医生可从三路模型候选中选择并语音修订",
     "step-p9": "问诊结束，智能助手已生成小结与指导建议",
+    "step-p10": "非合作医生未接入前，AI 自动完成托管预问诊",
+    "step-p11": "真人医生接入后，AI 托管追问立即停止",
+    "step-d7": "非合作医生也可使用同一套多模型 Copilot 与语音修订",
   }[id] || "当前流程步骤";
 }
 
